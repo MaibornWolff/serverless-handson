@@ -1,5 +1,5 @@
 #!/bin/bash -e
 
-cd config
+cd code
 serverless deploy -v
 cd -
