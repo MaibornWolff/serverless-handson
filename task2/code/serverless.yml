@@ -1,4 +1,4 @@
-service: handson
+service: task2
 frameworkVersion: "=1.36.3"
 
 provider:
@@ -12,17 +12,16 @@ provider:
 #    variable1: value1
 
 # you can add packaging information here
-#package:
-#  include:
-#    - include-me.py
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.py
-#    - exclude-me-dir/**
+package:
+  include:
+    - ../code/serverless_functions/**
+  exclude:
+    - ../code/monolith/**
+
 
 functions:
   hello1:
-    handler: handler1.hello
+    handler: serverless_functions/handler1.hello
     events:
       - http:
           path: hello1/{foo}
@@ -34,25 +33,25 @@ functions:
               queries:
                 bar: true
   hello2:
-    handler: handler2.hello
+    handler: serverless_functions/handler2.hello
     events:
       - http:
           path: hello2
           method: get
   hello3:
-    handler: handler3.hello
+    handler: serverless_functions/handler3.hello
     events:
       - http:
           path: hello3
           method: get
   hello4:
-    handler: handler4.hello
+    handler: serverless_functions/handler4.hello
     events:
       - http:
           path: hello4
           method: get
   hello5:
-    handler: handler5.hello
+    handler: serverless_functions/handler5.hello
     events:
       - http:
           path: hello5
