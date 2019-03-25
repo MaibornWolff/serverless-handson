@@ -1,4 +1,4 @@
-service: task1
+service: task4
 frameworkVersion: ">1.36.3"
 
 provider:
@@ -57,3 +57,6 @@ functions:
           path: hello5
           method: get
 
+
+plugins:
+  - serverless-python-requirements
