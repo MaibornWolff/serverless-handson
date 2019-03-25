@@ -8,19 +8,6 @@ dialog --msgbox "1. Öffnen Sie die Datei 'task2/code/serverless.yml'
 
 3. Fügen Sie die Konfiguration ein und benennen sie die neue Funktion '$VELOCITY_FUNC'" 20 50
 
-while true
-do
-    if grep "$VELOCITY_FUNC:" code/serverless.yml > /dev/null; then
-    echo "breaking bad"
-        break;
-    fi
-
-    dialog --yesno "Es konnte noch keine Funktion $VELOCITY_FUNC gefunden werden. Erneut prüfen?" 10 50
-    if [[ $? == 1 ]]; then
-        break;
-    fi
-done
-
 
 dialog --msgbox "Erstellen Sie nun eine neue Python Datei und verweisen Sie auf diese in code/serverless.yaml" 10 50
 
