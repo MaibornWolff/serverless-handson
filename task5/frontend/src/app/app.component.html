@@ -1,0 +1,24 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div fxLayout="row" fxLayoutAlign="center center" fxFlexAlign="center">
+  <mat-card id="polly-card">
+    <mat-card-title>Talking Polly</mat-card-title>
+    <mat-card-content class="full-width">
+
+      <mat-form-field appearance="outline">
+        <input [value]="text" (input)="text = $event.target['value']" matInput placeholder="Text">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-select [(value)]="selectedVoice" placeholder="Voices">
+          <mat-option [value]="v.Id" *ngFor="let v of voices">{{v.Name}}
+            <span class="push-right">
+              ({{v.LanguageName}})
+            </span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button (click)="read($event,player)" id="talk-button" color="primary" mat-raised-button>Talk</button>
+    </mat-card-content>
+  </mat-card>
+  <audio id="player" #player></audio>
+</div>

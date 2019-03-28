@@ -28,26 +28,49 @@ function --- {
 --- Setup "preconditions"
 assert python "Python 3" "python3 --version"
 assert dialog "/dialog" "whereis dialog"
+assert dialog "/yarn" "whereis yarn"
+assert dialog "/npm" "whereis npm"
+assert dialog "/jq" "whereis jq"
 assert aws-account "AWS_PROFILE" "printenv"
 
---- Task1 "monolith"
-assert monolith "localhost:9000" "../task1/code/monolith/monolith_server.py --test-mode"
+#--- Task1 "monolith"
+#assert monolith "localhost:9000" "../task1/code/monolith/monolith_server.py --test-mode"
+#
+#--- Task1 "serverless (~2min)"
+#cd ../task1/
+#assert sls-setup "Stack update finished..." "./deploy.sh"
+#cd - > /dev/null
+#
+#cd ../task1/code/
+#assert sls-func "Hello from" "serverless invoke -f hello1 -l"
+#
+## get url from 2nd f(x)
+#URL=`sls info | grep dev/hello2 | xargs |cut -d " " -f3`
+#assert sls-curl-call  "Go Serverless" "curl $URL"
+#cd - > /dev/null
+#
+#assert sls-destroy "Stack removal finished..." "./destroy-task.sh 1"
+#
+#
+#--- Task1 "cleanup"
+#assert cleanup "cleanup finished" "./cleanup-task.sh 1"
 
---- Task1 "serverless (~2min)"
-cd ../task1/
+
+--- Task5 "serverless (~3min)"
+cd ../task5
 assert sls-setup "Stack update finished..." "./deploy.sh"
 cd - > /dev/null
 
-cd ../task1/code/
-assert sls-func "Hello from" "serverless invoke -f hello1 -l"
+cd ../task5/code/
+assert voices "Vicki" "serverless invoke -f voices -l"
+assert synth '{\"speech\":' "sls invoke -f speechSynthesize -l -d '{\"queryStringParameters\":{\"voiceId\":\"Vicki\", \"outputFormat\":\"mp3\", \"text\":\"Hallo, ich bin Bernd das Brot\"}}'"
 
-# get url from 2nd f(x)
-URL=`sls info | grep dev/hello2 | xargs |cut -d " " -f3`
-assert sls-curl-call  "Go Serverless" "curl $URL"
+URL=`sls info | grep dev/voices | xargs |cut -d " " -f3`
+assert voices-curl-call  "Vicki" "curl $URL"
 cd - > /dev/null
 
-assert sls-destroy "Stack removal finished..." "./destroy-task.sh 1"
+assert sls-destroy "Stack removal finished..." "./destroy-task.sh 5"
 
 
---- Task1 "cleanup"
-assert cleanup "cleanup finished" "./cleanup-task.sh 1"
+--- Task5 "cleanup"
+assert cleanup "cleanup finished" "./cleanup-task.sh 5"

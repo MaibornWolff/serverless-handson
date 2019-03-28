@@ -10,5 +10,5 @@ case "${1}" in
     2) ;;
     3) ;;
     4) ;;
-    5) ;;
+    5) cd ../task5/code && serverless client remove --no-confirm && serverless remove && cd - ;;
 esac

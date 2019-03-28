@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html,body,app-root{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  background-size: cover;
+  background-image: url("/assets/animal-avian-beak-1618424.jpg");
+  margin: 0;
+  background-position: right bottom;
+  padding: 0;
+}
+
+#polly-card{
+  width: 300px;
+  background-color: rgba(255,255,255,0.75);
+  padding: 30px;
+}
+#talk-button{
+  float: right;
+
+}
+
+#logo{
+  width: 200px;
+  height: 142px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.mat-form-field-outline-start,
+.mat-form-field-outline-gap,
+.mat-form-field-outline-end{
+  background-color: white;
+}
+
+
+.snack-error {
+  color: white;
+  font-weight: bold;
+  background-color: #aa0006;
+}
