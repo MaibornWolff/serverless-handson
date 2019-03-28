@@ -1,5 +1,5 @@
 #!/bin/bash -e
 
 cd code
-serverless deploy -v
+serverless remove -v
 cd -
