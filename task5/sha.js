@@ -9,6 +9,5 @@ function shortSha256(data) {
 module.exports = (serverless) => {
     let localMacAddress = arped[Object.keys(arped).slice(-1).pop()]
     let hash = shortSha256( localMacAddress ).slice(-6);
-    serverless.cli.consoleLog('Using random string suffix '+hash);
     return hash;
 }
