@@ -27,6 +27,8 @@ AUDIO_FORMATS = {"ogg_vorbis": "audio/ogg", "mp3": "audio/mpeg", "pcm": "audio/w
 def handler(event: dict, context: dict) -> dict:
     """Handles routing for reading text (speech synthesis)"""
 
+    logger.info(event)
+
     if 'queryStringParameters' not in event:
         logger.error("No query parameters passed")
         return {}

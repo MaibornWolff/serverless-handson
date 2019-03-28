@@ -24,4 +24,6 @@ CLIENT_BUCKET=$(jq ".service.custom.client.bucketName" ./.serverless/serverless-
 cd - > /dev/null
 
 #open browser
-xdg-open "http://${CLIENT_BUCKET}.s3-website.eu-central-1.amazonaws.com/" 2>&1 > /dev/null
+if [[ $1 != "--no-browser" ]]; then
+    xdg-open "http://${CLIENT_BUCKET}.s3-website.eu-central-1.amazonaws.com/" 2>&1 > /dev/null
+fi

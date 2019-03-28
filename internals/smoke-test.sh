@@ -10,9 +10,9 @@ function assert {
     fi
 
     if grep -q "${contains}" <<< "${response}"; then
-        echo -e "\e[32mOK\e[0m\t ${subject} \t ${contains}"
+        printf " \e[32mOK\e[0m\t %-17s %s\n" "${subject}" "${contains}"
     else
-        echo -e "\e[31mFAILED!\e[0m \t ${subject} \t  Not found ${contains}"
+        printf " \e[31mFAILED\e[0m\t %-17s %s\n" "${subject}" "${contains}"
         echo ${response}; exit 1
     fi
 }
@@ -20,57 +20,68 @@ function assert {
 function --- {
     local printLine="[${1}]:${2}"
     local count=$(( $(tput cols) - `echo ${printLine}|wc -c` ))
-    printf "${printLine}%*s\n" "${count}" '' | tr ' ' -
+    printf "\n${printLine}%*s\n" "${count}" '' | tr ' ' _
 }
 ###### LIBRARY-END
+
 
 
 --- Setup "preconditions"
 assert python "Python 3" "python3 --version"
 assert dialog "/dialog" "whereis dialog"
-assert dialog "/yarn" "whereis yarn"
-assert dialog "/npm" "whereis npm"
-assert dialog "/jq" "whereis jq"
+assert node-yarn "/yarn" "whereis yarn"
+assert node-npm "/npm" "whereis npm"
+assert sls "/sls" "whereis sls"
+assert serverless "/serverless" "whereis serverless"
+assert jq "/jq" "whereis jq"
 assert aws-account "AWS_PROFILE" "printenv"
+assert code "Visual Studio Code" "code -h"
+assert firefox "Mozilla Firefox" "firefox -v"
 
-#--- Task1 "monolith"
-#assert monolith "localhost:9000" "../task1/code/monolith/monolith_server.py --test-mode"
-#
-#--- Task1 "serverless (~2min)"
-#cd ../task1/
-#assert sls-setup "Stack update finished..." "./deploy.sh"
-#cd - > /dev/null
-#
-#cd ../task1/code/
-#assert sls-func "Hello from" "serverless invoke -f hello1 -l"
-#
-## get url from 2nd f(x)
-#URL=`sls info | grep dev/hello2 | xargs |cut -d " " -f3`
-#assert sls-curl-call  "Go Serverless" "curl $URL"
-#cd - > /dev/null
-#
-#assert sls-destroy "Stack removal finished..." "./destroy-task.sh 1"
-#
-#
-#--- Task1 "cleanup"
-#assert cleanup "cleanup finished" "./cleanup-task.sh 1"
+
+
+
+--- Task1 "monolith"
+assert monolith "localhost:9000" "../task1/code/monolith/monolith_server.py --test-mode"
+
+--- Task1 "serverless (~2min)"
+cd ../task1/
+assert sls-setup "Stack update finished..." "./deploy.sh"
+cd - > /dev/null
+
+cd ../task1/code/
+assert sls-func "Hello from" "serverless invoke -f hello1 -l"
+
+# get url from 2nd f(x)
+URL=`sls info | grep dev/hello2 | xargs |cut -d " " -f3`
+assert sls-curl-call  "Go Serverless" "curl $URL"
+cd - > /dev/null
+
+assert sls-destroy "Stack removal finished..." "./destroy-task.sh 1"
+
+
+--- Task1 "cleanup"
+assert cleanup "cleanup finished" "./cleanup-task.sh 1"
+
+
+
 
 
 --- Task5 "serverless (~3min)"
 cd ../task5
-assert sls-setup "Stack update finished..." "./deploy.sh"
+assert sls-setup "Stack update finished..." "./deploy.sh --no-browser"
 cd - > /dev/null
 
 cd ../task5/code/
-assert voices "Vicki" "serverless invoke -f voices -l"
-assert synth '{\"speech\":' "sls invoke -f speechSynthesize -l -d '{\"queryStringParameters\":{\"voiceId\":\"Vicki\", \"outputFormat\":\"mp3\", \"text\":\"Hallo, ich bin Bernd das Brot\"}}'"
+assert sls-voices "Vicki" "serverless invoke -f voices -l"
+
+assert sls-synth '\\"speech\\":' "serverless invoke -f speechSynthesize -l -p ../../internals/events/polly-demo.json"
 
 URL=`sls info | grep dev/voices | xargs |cut -d " " -f3`
-assert voices-curl-call  "Vicki" "curl $URL"
+assert sls-curl-call  "Vicki" "curl $URL"
 cd - > /dev/null
 
 assert sls-destroy "Stack removal finished..." "./destroy-task.sh 5"
-
 
 --- Task5 "cleanup"
 assert cleanup "cleanup finished" "./cleanup-task.sh 5"

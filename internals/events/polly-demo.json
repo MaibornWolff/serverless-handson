@@ -1,0 +1,6 @@
+{
+  "queryStringParameters": {
+    "voiceId": "Vicki",
+    "outputFormat": "mp3",
+    "text": "Hey, I am polly"
+  }}
