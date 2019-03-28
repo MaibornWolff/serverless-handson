@@ -1,4 +1,4 @@
-service: task1
+service: task4
 frameworkVersion: ">1.36.3"
 
 provider:
@@ -56,4 +56,3 @@ functions:
       - http:
           path: hello5
           method: get
-
