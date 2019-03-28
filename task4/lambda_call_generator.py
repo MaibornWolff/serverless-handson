@@ -1,97 +1,102 @@
+from multiprocessing import Process
+import os
 import requests
-import logging
-import threading
-import sched, time, datetime
-
-class RequestThread (threading.Thread):
-    base_url = None
-    function_name = None
-    request_type = None
-
-    def __init__(self, thread_id, thread_name, counter, base_url, function_name, request_type):
-        threading.Thread.__init__(self)
-        self.threadID = thread_id
-        self.name = thread_name
-        self.counter = counter
-        self.base_url = base_url
-        self.function_name = function_name
-        self.request_type = request_type
-
-    def run(self):
-        print (threading.currentThread().getName(), ":", "Starting " + self.name)
-        call_lambda_continously(self.base_url, self.function_name, self.request_type)
-        print (threading.currentThread().getName(), ":", "Exiting " + self.name)
+import time
+import sched
+import datetime
+import sys
 
 
-def call_lambda(url, request_type):
+def call(url, request_type):
+    r = None
     try:
-        r = None
         if request_type == "GET":
             r = requests.get(url=url)
         elif request_type == "POST":
             r = requests.post(url=url+"/"+"fooParameter")
         else:
             raise Exception("unknown request type"+request_type)
-
-        if(r.status_code == 200 and r.reason == "OK"):
-            return True
-        else:
-            raise Exception('Elastic API didnt response as expected', {'statusCode': r.status_code, 'reason': r.reason, 'content': r.content})
-    except Exception as ex:
-        print (threading.currentThread().getName(), ":", "Connection Error happend, will be ignored")
-
-
-
-def schedule_per_second(url, request_type):
-    s = sched.scheduler(timefunc=time.time,delayfunc=time.sleep)
-
-    def run_task():
-        delay = 1
-        try:
-            start = time.time()
-            call_lambda(url, request_type)
-            end = time.time()
-            delay = 1-(end-start)
-
-            if "Thread-hello44" in threading.currentThread().getName():
-                print(threading.currentThread().getName(), ":", "Runned ", end - start, "seconds - Time", str(datetime.datetime.now().time()))
-        finally:
-            s.enter(delay=delay, priority=1, action=run_task)
-
-    run_task()
-    try:
-        s.run()
     except KeyboardInterrupt:
-        print('Manual break by user')
-        return 10
+        sys.exit(0)
+    except Exception as ex:
+        print ("ProcessId:", os.getpid(), "Connection Error happend, will be ignored")
+        print (ex)
+        return 0
 
-    return 0
-
-def call_lambda_continously(base_url, function_name, request_type):
-    url = base_url+function_name
-
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-
-    logger.info("Calling lambda function")
-
-    schedule_per_second(url, request_type)
-
-def run(base_url, function_name, requests_per_second, request_type):
-    counter=0
-    while counter < requests_per_second:
-        thread = RequestThread(counter, "Thread-" + function_name + "-" + str(counter), counter, base_url,function_name, request_type)
-        thread.start()
-        counter +=1
-
-    print("Calling", base_url+function_name, requests_per_second, "times per second")
+    if(r.status_code == 200 and r.reason == "OK"):
+        return True
+    else:
+        raise Exception('Elastic API didnt response as expected', {'statusCode': r.status_code, 'reason': r.reason, 'content': r.content})
 
 
-if __name__ == "__main__":
-    base_url = "https://b002lhcuyb.execute-api.eu-central-1.amazonaws.com/dev/"
 
-    run(base_url=base_url, function_name="hello1", requests_per_second=100, request_type="POST")
-    #run(base_url=base_url, function_name="hello2", requests_per_second=50, request_type="GET")
-    #run(base_url=base_url, function_name="hello3", requests_per_second=50, request_type="GET")
-    #run(base_url=base_url, function_name="hello4", requests_per_second=50, request_type="GET")
-    #run(base_url=base_url, function_name="hello5", requests_per_second=50, request_type="GET")
+class CallInfo():
+    base_url = None
+    requests_per_second = None
+    function_id = None
+    runtime_in_seconds = None
+    request_type = None
+
+    def __init__(self, base_url, requests_per_second, function_id, runtime_in_seconds, request_type):
+        self.base_url = base_url
+        self.requests_per_second = requests_per_second
+        self.function_id = function_id
+        self.runtime_in_seconds = runtime_in_seconds
+        self.request_type = request_type
+
+    def start_processes(self, request_per_second):
+        url = str(self.base_url)+str(self.function_id)
+        index = 0
+
+        try:
+            while index < request_per_second:
+                p = Process(target=call, args=(url,self.request_type))
+                p.start()
+                index +=1
+        except KeyboardInterrupt:
+            sys.exit(0)
+
+    def schedule_per_second(self):
+        s = sched.scheduler(timefunc=time.time, delayfunc=time.sleep)
+
+        def run_task(runtime_in_seconds):
+            delay = 1
+            try:
+                start = time.time()
+                self.start_processes(self.requests_per_second)
+                end = time.time()
+                delay = 1-(end-start)
+
+                print("Function:", self.function_id, "- ProcessId:", os.getpid(), "- Counter:", runtime_in_seconds, "- ", "Duration: ", round(end - start,3),
+                      "seconds - Time:",
+                      str(datetime.datetime.now().time()))
+            finally:
+                try:
+                    runtime_in_seconds -= 1
+                    if runtime_in_seconds > 0:
+                        s.enter(delay=delay, priority=1, action=run_task,argument=(runtime_in_seconds,))
+                except KeyboardInterrupt:
+                    sys.exit(0)
+
+        run_task(self.runtime_in_seconds)
+        try:
+            s.run()
+        except KeyboardInterrupt:
+            sys.exit(0)
+
+
+if __name__ == '__main__':
+    function_id = sys.argv[1]
+    runtime_in_seconds = sys.argv[2]
+    requests_per_second_list = sys.argv[3:]
+    print ("Function id: "+str(function_id))
+    print("Runtime in seconds: "+ str(runtime_in_seconds))
+    print ("Requests per second"+ str(requests_per_second_list))
+    base_url = "https://7gq3h2i9m3.execute-api.eu-central-1.amazonaws.com/dev/hello"
+
+    for requests_per_second in requests_per_second_list:
+        CallInfo(base_url=base_url,
+                 function_id=int(function_id),
+                 requests_per_second=int(requests_per_second),
+                 runtime_in_seconds=int(runtime_in_seconds),
+                 request_type="GET").schedule_per_second()

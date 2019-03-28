@@ -56,7 +56,3 @@ functions:
       - http:
           path: hello5
           method: get
-
-
-plugins:
-  - serverless-python-requirements
