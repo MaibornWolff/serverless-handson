@@ -1,0 +1,44 @@
+service: polly
+frameworkVersion: ">=1.36.3 <2.0.0"
+
+provider:
+  name: aws
+  runtime: python3.7
+  stage: dev
+  region: eu-central-1
+
+# you can add statements to the Lambda function's IAM Role here
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "polly:SynthesizeSpeech"
+        - "polly:DescribeVoices"
+      Resource: "*"
+
+functions:
+  voices:
+    handler: voices.handler
+    events:
+      - http:
+          path: voices
+          method: get
+  speechSynthesize:
+    handler: synthesizer.handler
+    events:
+      - http:
+          path: speech-synthesize
+          method: get
+          request:
+            parameters:
+              queries:
+                text: true
+                voiceId: true
+                outputFormat: true
+
+plugins:
+  - serverless-finch
+
+custom:
+  client:
+    bucketName: "polly-ng-asset-${file(../sha.js)}"
+    distributionFolder: ../frontend/dist/

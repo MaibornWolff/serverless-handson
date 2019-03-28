@@ -10,9 +10,9 @@ function assert {
     fi
 
     if grep -q "${contains}" <<< "${response}"; then
-        echo -e "\e[32mOK\e[0m\t ${subject} \t ${contains}"
+        printf "    \e[32mOK\e[0m    %-17s %s\n" "${subject}" "${contains}"
     else
-        echo -e "\e[31mFAILED!\e[0m \t ${subject} \t  Not found ${contains}"
+        printf "  \e[31mFAILED\e[0m  %-17s %s\n" "${subject}" "${contains}"
         echo ${response}; exit 1
     fi
 }
@@ -20,15 +20,26 @@ function assert {
 function --- {
     local printLine="[${1}]:${2}"
     local count=$(( $(tput cols) - `echo ${printLine}|wc -c` ))
-    printf "${printLine}%*s\n" "${count}" '' | tr ' ' -
+    printf "\n${printLine}%*s\n" "${count}" '' | tr ' ' _
 }
 ###### LIBRARY-END
+
 
 
 --- Setup "preconditions"
 assert python "Python 3" "python3 --version"
 assert dialog "/dialog" "whereis dialog"
+assert node-yarn "/yarn" "whereis yarn"
+assert node-npm "/npm" "whereis npm"
+assert sls "/sls" "whereis sls"
+assert serverless "/serverless" "whereis serverless"
+assert jq "/jq" "whereis jq"
 assert aws-account "AWS_PROFILE" "printenv"
+assert code "Visual Studio Code" "code -h"
+assert firefox "Mozilla Firefox" "firefox -v"
+
+
+
 
 --- Task1 "monolith"
 assert monolith "localhost:9000" "../task1/code/monolith/monolith_server.py --test-mode"
@@ -51,3 +62,26 @@ assert sls-destroy "Stack removal finished..." "./destroy-task.sh 1"
 
 --- Task1 "cleanup"
 assert cleanup "cleanup finished" "./cleanup-task.sh 1"
+
+
+
+
+
+--- Task5 "serverless (~3min)"
+cd ../task5
+assert sls-setup "Stack update finished..." "./deploy.sh --no-browser"
+cd - > /dev/null
+
+cd ../task5/code/
+assert sls-voices "Vicki" "serverless invoke -f voices -l"
+
+assert sls-synth '\\"speech\\":' "serverless invoke -f speechSynthesize -l -p ../../internals/events/polly-demo.json"
+
+URL=`sls info | grep dev/voices | xargs |cut -d " " -f3`
+assert sls-curl-call  "Vicki" "curl $URL"
+cd - > /dev/null
+
+assert sls-destroy "Stack removal finished..." "./destroy-task.sh 5"
+
+--- Task5 "cleanup"
+assert cleanup "cleanup finished" "./cleanup-task.sh 5"
