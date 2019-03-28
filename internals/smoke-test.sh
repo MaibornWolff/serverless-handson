@@ -10,9 +10,9 @@ function assert {
     fi
 
     if grep -q "${contains}" <<< "${response}"; then
-        printf " \e[32mOK\e[0m\t %-17s %s\n" "${subject}" "${contains}"
+        printf "    \e[32mOK\e[0m    %-17s %s\n" "${subject}" "${contains}"
     else
-        printf " \e[31mFAILED\e[0m\t %-17s %s\n" "${subject}" "${contains}"
+        printf "  \e[31mFAILED\e[0m  %-17s %s\n" "${subject}" "${contains}"
         echo ${response}; exit 1
     fi
 }
