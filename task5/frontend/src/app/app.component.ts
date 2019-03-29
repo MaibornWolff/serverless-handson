@@ -26,7 +26,14 @@ export class AppComponent implements OnInit {
       this.voices = response as Voice[];
       const germanVoices = this.voices.filter(v => v.LanguageCode === 'de-DE');
       this.selectedVoice = germanVoices[Math.floor(Math.random() * germanVoices.length)].Id;
-    });
+    },
+      (err) => {
+        this.snackBar.open("Cloud not find any voice", null, {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'snack-error'
+        });
+      });
   }
 
   constructor(private pollyService: PollyService, private snackBar: MatSnackBar) {

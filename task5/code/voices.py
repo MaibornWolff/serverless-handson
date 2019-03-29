@@ -15,7 +15,11 @@ defaultHeader = {
 fields = ("statusCode", "body", "headers", "isBase64Encoded")
 Response = namedtuple("HTTPResponse", fields, defaults=(None, None, defaultHeader, False))
 
-polly = boto3.client('polly')
+
+#
+# COMMENT IN HERE!!!
+# polly = boto3.client('polly')
+#
 
 # Mapping the output format used in the client to the content type for the response
 AUDIO_FORMATS = {"ogg_vorbis": "audio/ogg", "mp3": "audio/mpeg", "pcm": "audio/wave; codecs=1"}
