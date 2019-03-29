@@ -55,7 +55,7 @@ cd ../task1/code/
 assert sls-func "Hello from" "serverless invoke -f hello1 -l"
 
 # get url from 2nd f(x)
-URL=`sls info | grep dev/hello2 | xargs |cut -d " " -f3`
+URL=`sls info | grep prod/hello2 | xargs |cut -d " " -f3`
 assert sls-curl-call  "Go Serverless" "curl $URL"
 cd - > /dev/null
 
@@ -64,8 +64,6 @@ assert sls-destroy "Stack removal finished..." "./destroy-task.sh 1"
 
 --- Task1 "cleanup"
 assert cleanup "cleanup finished" "./cleanup-task.sh 1"
-
-
 
 
 

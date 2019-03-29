@@ -4,7 +4,7 @@ frameworkVersion: ">=1.36.3 <2.0.0"
 provider:
   name: aws
   runtime: python3.7
-  stage: dev
+  stage: prod
   region: eu-central-1
 
 # you can define service wide environment variables here
