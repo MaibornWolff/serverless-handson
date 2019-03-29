@@ -24,14 +24,8 @@ functions:
     handler: serverless_functions/handler1.hello
     events:
       - http:
-          path: hello1/{foo}
-          method: post
-          request:
-            parameters:
-              paths:
-                foo: true
-              queries:
-                bar: true
+          path: hello1
+          method: get
   hello2:
     handler: serverless_functions/handler2.hello
     events:
@@ -49,11 +43,5 @@ functions:
     events:
       - http:
           path: hello4
-          method: get
-  hello5:
-    handler: serverless_functions/handler5.hello
-    events:
-      - http:
-          path: hello5
           method: get
 
