@@ -14,7 +14,7 @@ sed -i -E "s?lambdaApiEndpoint:.+?lambdaApiEndpoint: '${BASE_URL}'?g" ./frontend
 # build frontend
 cd frontend
 yarn
-ng build --prod
+node_modules/@angular/cli/bin/ng build --prod
 cd - > /dev/null
 
 # deploy frontend

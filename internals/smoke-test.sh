@@ -34,8 +34,9 @@ assert node-npm "/npm" "whereis npm"
 assert sls "/sls" "whereis sls"
 assert serverless "/serverless" "whereis serverless"
 assert jq "/jq" "whereis jq"
+assert xdg-open "/xdg-open" "whereis xdg-open"
 assert aws-account "AWS_PROFILE" "printenv"
-assert code "Visual Studio Code" "code -h"
+#assert code "Visual Studio Code" "code -v"
 assert firefox "Mozilla Firefox" "firefox -v"
 
 
