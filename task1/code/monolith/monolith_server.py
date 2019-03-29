@@ -62,6 +62,7 @@ class Server(BaseHTTPRequestHandler):
 
     def handle_http(self, content):
         self.send_response(content['statusCode'])
+        self.send_header('Content-Type', 'application/json')
         self.end_headers()
         return bytes(json.dumps(content), 'UTF-8')
 
