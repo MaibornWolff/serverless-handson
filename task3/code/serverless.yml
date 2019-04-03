@@ -7,11 +7,7 @@ provider:
   stage: dev
   region: eu-central-1
 
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
 
-# you can add packaging information here
 package:
   include:
     - serverless_functions/**
