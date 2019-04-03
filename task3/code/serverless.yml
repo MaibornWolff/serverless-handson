@@ -1,4 +1,4 @@
-service: task1
+service: task3
 frameworkVersion: ">=1.36.3 <2.0.0"
 
 provider:
@@ -15,45 +15,11 @@ provider:
 package:
   include:
     - ../code/serverless_functions/**
-  exclude:
-    - ../code/monolith/**
-
 
 functions:
-  hello1:
-    handler: serverless_functions/handler1.hello
+  temperature:
+    handler: serverless_functions/temperature.retrieve_temperature
     events:
       - http:
-          path: hello1/{foo}
-          method: post
-          request:
-            parameters:
-              paths:
-                foo: true
-              queries:
-                bar: true
-  hello2:
-    handler: serverless_functions/handler2.hello
-    events:
-      - http:
-          path: hello2
+          path: temperature
           method: get
-  hello3:
-    handler: serverless_functions/handler3.hello
-    events:
-      - http:
-          path: hello3
-          method: get
-  hello4:
-    handler: serverless_functions/handler4.hello
-    events:
-      - http:
-          path: hello4
-          method: get
-  hello5:
-    handler: serverless_functions/handler5.hello
-    events:
-      - http:
-          path: hello5
-          method: get
-
