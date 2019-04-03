@@ -18,7 +18,7 @@ package:
 
 functions:
   temperature:
-    handler: serverless_functions/temperature.retrieve_temperature
+    handler: serverless_functions/temperature.temperature
     events:
       - http:
           path: temperature
