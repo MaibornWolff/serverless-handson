@@ -14,7 +14,7 @@ provider:
 # you can add packaging information here
 package:
   include:
-    - ../code/serverless_functions/**
+    - serverless_functions/**
 
 functions:
   temperature:

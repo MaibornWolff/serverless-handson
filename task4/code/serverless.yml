@@ -14,10 +14,7 @@ provider:
 # you can add packaging information here
 package:
   include:
-    - ../code/serverless_functions/**
-  exclude:
-    - ../code/monolith/**
-
+    - serverless_functions/**
 
 functions:
   hello1:
