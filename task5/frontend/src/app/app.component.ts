@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
       this.selectedVoice = germanVoices[Math.floor(Math.random() * germanVoices.length)].Id;
     },
       (err) => {
-        this.snackBar.open("Cloud not find any voice", null, {
+        this.snackBar.open("Could not find any voice", null, {
           horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'snack-error'
