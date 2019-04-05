@@ -73,7 +73,7 @@ assert sls-setup "Stack update finished..." "./deploy.sh --no-browser"
 cd - > /dev/null
 
 cd ../task5/code/
-assert sls-voices "Vicki" "serverless invoke -f voices -l"
+assert sls-voices "name 'polly' is not defined" "serverless invoke -f voices -l"
 
 assert sls-synth '\\"speech\\":' "serverless invoke -f speechSynthesize -l -p ../../internals/events/polly-demo.json"
 
