@@ -22,12 +22,14 @@ functions:
       - http:
           path: voices
           method: get
+          cors: true 
   speechSynthesize:
     handler: synthesizer.handler
     events:
       - http:
           path: speech-synthesize
           method: get
+          cors: true
           request:
             parameters:
               queries:

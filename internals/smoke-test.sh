@@ -56,7 +56,7 @@ assert sls-func "Hello from" "serverless invoke -f hello1 -l"
 
 # get url from 2nd f(x)
 URL=`sls info | grep prod/hello2 | xargs |cut -d " " -f3`
-assert sls-curl-call  "Go Serverless" "curl $URL"
+assert sls-curl-call  "Go Serverless" "curl -X GET $URL"
 cd - > /dev/null
 
 assert sls-destroy "Stack removal finished..." "./destroy-task.sh 1"
@@ -73,12 +73,12 @@ assert sls-setup "Stack update finished..." "./deploy.sh --no-browser"
 cd - > /dev/null
 
 cd ../task5/code/
-assert sls-voices "name 'polly' is not defined" "serverless invoke -f voices -l"
+assert sls-voices "Polly not found" "serverless invoke -f voices -l"
 
 assert sls-synth '\\"speech\\":' "serverless invoke -f speechSynthesize -l -p ../../internals/events/polly-demo.json"
 
 URL=`sls info | grep dev/voices | xargs |cut -d " " -f3`
-assert sls-curl-call  "Vicki" "curl $URL"
+assert sls-curl-call  "Polly not found" "curl -X GET $URL"
 cd - > /dev/null
 
 assert sls-destroy "Stack removal finished..." "./destroy-task.sh 5"

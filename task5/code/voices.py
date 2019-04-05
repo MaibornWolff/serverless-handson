@@ -38,6 +38,8 @@ def handler(event: dict, context: dict) -> dict:
             # was returned by the previous call then use it to continue
             # listing
             response = polly.describe_voices(**params)
+        except NameError:
+            return dict(Response(statusCode=501, body="Polly not found")._asdict())
         except (BotoCoreError, ClientError) as err:
             # The service returned an error
             return dict(Response(statusCode=500, body=str(err))._asdict())

@@ -10,7 +10,7 @@ case "${1}" in
     2) ;;
     3) ;;
     4) ;;
-    5) rm -rf ../task5/code/.serverless && rm -rf ../task5/code/node_modules && rm -rf ../task5/frontend/node_modules && rm -rf ../task5/frontend/dist;;
+    5) rm -rf ../task5/code/.serverless && rm -rf ../task5/code/node_modules && rm -rf ../task5/frontend/node_modules;;
 esac
 
 echo "cleanup finished"
