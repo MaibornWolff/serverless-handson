@@ -1,16 +1,17 @@
-
 """
-    This serverless method returns the current temperature
+    This serverless function returns the current temperature
 """
 def temperature(event, context):
 
-    # This value we got from an sensor in fahrenheit
-    degree_fahrenheit = 89.6
+    # This value we got from a sensor in kelvin
+    temperature_kelvin = 305.15
+
+    temperature = convert_kelvin_to_fahrenheit(temperature_kelvin)
 
     response_body = {
         "message": "Temperature retrieved successfully",
         "input": event,
-        "output": degree_fahrenheit
+        "output": temperature
     }
 
     response = {
@@ -21,9 +22,9 @@ def temperature(event, context):
     return response
 
 
+def convert_kelvin_to_fahrenheit(kelvin):
+    return (kelvin - 273.15) * 9/5 + 32
 
-def convert_celsius_to_fahrenheit(degree_celsius):
-    return degree_celsius * 9/5 + 32
 
-def convert_fahrenheit_to_celsius(degree_fahrenheit):
-    return (degree_fahrenheit - 32) * 5/9
+def convert_kelvin_to_celsius(kelvin):
+    return kelvin - 273.15
