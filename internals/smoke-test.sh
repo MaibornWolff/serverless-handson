@@ -28,7 +28,7 @@ function --- {
 
 --- Setup "preconditions"
 assert python "Python 3" "python3 --version"
-assert python-alias "Python 3" "python --version"
+#assert python-alias "Python 3" "python --version"
 assert dialog "/dialog" "whereis dialog"
 assert node-yarn "/yarn" "whereis yarn"
 assert node-npm "/npm" "whereis npm"
