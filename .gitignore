@@ -29,3 +29,7 @@ var/
 
 # Serverless directories
 .serverless
+
+#office
+~$*.ppt*
+~$*.doc*
