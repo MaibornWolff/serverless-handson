@@ -62,7 +62,7 @@ fi
     assert sls-destroy "Stack removal finished..." "sls remove"
     cd - > /dev/null
 
-    assert cleanup "cleaned" "./destroy-task.sh 5"
+    assert cleanup "cleaned" "./destroy-task.sh 1"
 
     --- Task5 "serverless (~3min)"
     cd ../task5
