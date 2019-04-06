@@ -38,3 +38,6 @@ var/
 # temp
 nohup.out
 yarn.lock
+
+**/environment.ts
+**/environment.prod.ts
