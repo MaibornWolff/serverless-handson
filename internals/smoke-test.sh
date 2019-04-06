@@ -44,6 +44,7 @@ fi
 
 #introduce try-catch
 {
+
     --- Task1 "monolith"
     assert monolith "localhost:9000" "../task1/code/monolith/monolith_server.py --test-mode"
 
@@ -63,6 +64,26 @@ fi
     cd - > /dev/null
 
     assert cleanup "cleaned" "./destroy-task.sh 5"
+
+
+
+    --- Task3 "serverless (~2min)"
+    cd ../task3/
+    assert sls-setup "Stack update finished..." "./deploy.sh"
+    cd - > /dev/null
+
+    cd ../task3/code/
+    assert sls-func "Sent temperature to monitoring" "serverless invoke -f temperature -l"
+
+    URL=`sls info | grep production/temperature | xargs |cut -d " " -f3`
+    assert sls-url-given "http" "$URL"
+    assert sls-curl-call  "Temperature retrieved successfully" "curl -X GET $URL"
+    assert sls-destroy "Stack removal finished..." "sls remove"
+    cd - > /dev/null
+
+    assert cleanup "cleaned" "./destroy-task.sh 3"
+
+
 
     --- Task5 "serverless (~3min)"
     cd ../task5

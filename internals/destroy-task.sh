@@ -9,23 +9,35 @@ fi
 
 for i in ${RUN_TASKS}; do
     case "${i}" in
-        1|all)
+        1)
             echo "...Task1"
             cd ../task1/code
             serverless remove 2>&1 >/dev/null || true
             cd - > /dev/null
             rm -rf ../task1/code/.serverless
         ;;
-        2|all)
+        2)
             echo "...Task2"
+            cd ../task2/code
+            serverless remove 2>&1 >/dev/null || true
+            cd - > /dev/null
+            rm -rf ../task2/code/.serverless
         ;;
-        3|all)
+        3)
             echo "...Task3"
+            cd ../task3/code
+            serverless remove 2>&1 >/dev/null || true
+            cd - > /dev/null
+            rm -rf ../task3/code/.serverless
         ;;
-        4|all)
+        4)
             echo "...Task4"
+            cd ../task4/code
+            serverless remove 2>&1 >/dev/null || true
+            cd - > /dev/null
+            rm -rf ../task4/code/.serverless
         ;;
-        5|all)
+        5)
             echo "...Task5"
             cd ../task5/code
             yarn
