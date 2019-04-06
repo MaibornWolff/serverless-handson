@@ -52,10 +52,10 @@ assert sls-setup "Stack update finished..." "./deploy.sh"
 cd - > /dev/null
 
 cd ../task1/code/
-assert sls-func "Hello from" "serverless invoke -f hello1 -l"
+assert sls-func "Hello from" "serverless invoke -f brightness -l"
 
 # get url from 2nd f(x)
-URL=`sls info | grep prod/hello2 | xargs |cut -d " " -f3`
+URL=`sls info | grep prod/brightness./des | xargs |cut -d " " -f3`
 assert sls-curl-call  "Go Serverless" "curl -X GET $URL"
 cd - > /dev/null
 

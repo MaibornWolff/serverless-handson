@@ -37,3 +37,4 @@ var/
 
 # temp
 nohup.out
+yarn.lock
