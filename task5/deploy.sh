@@ -11,7 +11,7 @@ serverless deploy -v
 BASE_URL=`sls info -v | grep ServiceEndpoint: | xargs |cut -d " " -f2`
 cd - > /dev/null
 
-mkdir frontend/src/environments
+mkdir -p frontend/src/environments
 echo "export const environment = {
   production: false,
   lambdaApiEndpoint: '${BASE_URL}'
