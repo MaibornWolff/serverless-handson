@@ -37,7 +37,9 @@ var/
 
 # temp
 nohup.out
-yarn.lock
+#Keep it -> deterministic deployment & building!
+#yarn.lock
+
 
 **/environment.ts
 **/environment.prod.ts
