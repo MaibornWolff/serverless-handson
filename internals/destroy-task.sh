@@ -1,11 +1,6 @@
 #!/bin/bash -e
 
-if [[ $# -eq 0 ]]; then
-    RUN_TASKS="1 2 3 4 5"
-    echo "Delete all"
-else
-    RUN_TASKS=$1
-fi
+RUN_TASKS=`test $# -eq 0 && echo "1 2 3 4 5" || echo $1`
 
 for i in ${RUN_TASKS}; do
     case "${i}" in
