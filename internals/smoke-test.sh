@@ -31,13 +31,15 @@ assert node-npm "/npm" "which npm"
 assert sls "/sls" "which sls"
 assert serverless "/serverless" "which serverless"
 assert jq "/jq" "which jq"
+assert aws-account "AWS_PROFILE" "printenv"
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    assert open "/xdg-open" "which open"
+    assert open "/open" "which open"
 else
     assert xdg-open "/xdg-open" "which xdg-open"
+    assert firefox "Mozilla Firefox" "firefox -v"
 fi
-assert aws-account "AWS_PROFILE" "printenv"
-assert firefox "Mozilla Firefox" "firefox -v"
+
+
 
 
 #introduce try-catch
