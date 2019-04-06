@@ -68,10 +68,24 @@ fi
                 assert sls-destroy "Stack removal finished..." "sls remove"
                 cd - > /dev/null
 
-                assert cleanup "cleaned" "./destroy-task.sh 5"
+                assert cleanup "cleaned" "./destroy-task.sh 1"
             ;;
             2)
+                --- Task2 "serverless (~2min)"
+                cd ../task2/
+                assert sls-setup "Stack update finished..." "./deploy.sh"
+                cd - > /dev/null
 
+                cd ../task2/code/
+                assert sls-func "Sent temperature to monitoring" "serverless invoke -f temperature -l"
+
+                URL=`sls info | grep production/brightness | xargs |cut -d " " -f3`
+                 assert sls-url-given "http" "$URL"
+                assert sls-curl-call  "Go Serverless" "curl -X GET $URL"
+                assert sls-destroy "Stack removal finished..." "sls remove"
+                cd - > /dev/null
+
+                assert cleanup "cleaned" "./destroy-task.sh 2"
             ;;
             3)
                 --- Task3 "serverless (~2min)"
