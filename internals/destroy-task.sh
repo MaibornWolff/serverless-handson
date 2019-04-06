@@ -40,6 +40,7 @@ for i in ${RUN_TASKS}; do
             serverless remove 2>&1 >/dev/null || true
             cd - > /dev/null
             rm -rf ../task5/code/.serverless
+            rm -rf ../task5/code/frontend/src/environments
             rm -rf ../task5/code/node_modules
             rm -rf ../task5/frontend/node_modules
         ;;

@@ -17,26 +17,41 @@ const AUDIO_FORMATS = {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  constructor(private pollyService: PollyService, private snackBar: MatSnackBar) {
+  }
+
   voices: Voice[];
   selectedVoice: string;
-  text = 'Polly will einen Keks';
+  text = 'Die aktuelle Temperatur beträgt 32° Celsius';
+
+  @ViewChild('noiseplayer') noisePlayer;
+
+  /**
+   * Plays a very silent sound to keep the bluetooth speaker alive
+   */
+  static playPingSound(player: HTMLAudioElement) {
+    console.log(player);
+    player.loop = true;
+    player.volume = 0.001; // ~0.1 sone with 100% pc speaker volume
+    player.load();
+    player.play();
+  }
 
   ngOnInit(): void {
     this.pollyService.getVoices().subscribe(response => {
-      this.voices = response as Voice[];
-      const germanVoices = this.voices.filter(v => v.LanguageCode === 'de-DE');
-      this.selectedVoice = germanVoices[Math.floor(Math.random() * germanVoices.length)].Id;
-    },
-      (err) => {
-        this.snackBar.open("Could not find any voice", null, {
+        this.voices = response as Voice[];
+        const germanVoices = this.voices.filter(v => v.LanguageCode === 'de-DE');
+        this.selectedVoice = germanVoices[Math.floor(Math.random() * germanVoices.length)].Id;
+      },
+      () => {
+        this.snackBar.open('Could not find any voice', null, {
           horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'snack-error'
         });
       });
-  }
-
-  constructor(private pollyService: PollyService, private snackBar: MatSnackBar) {
+    AppComponent.playPingSound(this.noisePlayer.nativeElement);
   }
 
   /**
@@ -52,7 +67,7 @@ export class AppComponent implements OnInit {
 
   read($event: MouseEvent, player: HTMLAudioElement) {
     const supportedAudioFormat = this.getSupportedAudioFormats(player)[0];
-    this.pollyService.speechSynthesize(this.selectedVoice , this.text, supportedAudioFormat).subscribe(response => {
+    this.pollyService.speechSynthesize(this.selectedVoice, this.text, supportedAudioFormat).subscribe(response => {
         const speech = response as SpeechSynthResponse;
         player.setAttribute('src', 'data:' + AUDIO_FORMATS[supportedAudioFormat] + ';base64,' + speech.speech);
         player.load();
@@ -68,4 +83,5 @@ export class AppComponent implements OnInit {
       }
     );
   }
+
 }
