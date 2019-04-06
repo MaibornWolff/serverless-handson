@@ -77,7 +77,7 @@ fi
                 cd - > /dev/null
 
                 cd ../task2/code/
-                assert sls-func "Sent temperature to monitoring" "serverless invoke -f temperature -l"
+                assert sls-func "Go Serverless v1.0" "serverless invoke -f temperature -l"
 
                 URL=`sls info | grep production/brightness | xargs |cut -d " " -f3`
                  assert sls-url-given "http" "$URL"
