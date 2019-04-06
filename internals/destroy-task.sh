@@ -36,7 +36,7 @@ for i in ${RUN_TASKS}; do
             echo "...Task5"
             cd ../task5/code
             yarn
-            serverless client remove --no-confirm
+            serverless client remove --no-confirm 2>&1 >/dev/null || true
             serverless remove 2>&1 >/dev/null || true
             cd - > /dev/null
             rm -rf ../task5/code/.serverless
