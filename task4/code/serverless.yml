@@ -11,6 +11,8 @@ provider:
 package:
   include:
     - serverless_functions/**
+  exclude:
+    - load_generator/**
 
 
 # Serverless functions configuration

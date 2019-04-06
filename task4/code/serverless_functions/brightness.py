@@ -1,5 +1,6 @@
 import json
 import logging
+import random
 from common.generate_log import debug
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -9,11 +10,14 @@ logger.setLevel(logging.INFO)
     This serverless function returns the current brightness
 """
 def brightness(event, context):
-    debug("There will be sunshine", 1)
+    brightness = random.randint(0,100)
+
+    debug("There will be sunshine", brightness, 1, 0)
 
     body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
+        "message": "Brightness retrieved successfully",
+        "input": event,
+        "value": brightness
     }
 
     logger.info("Hello from somewhere in the cloud! This is the API /brightness")

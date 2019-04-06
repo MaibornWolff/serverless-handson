@@ -1,5 +1,6 @@
 import json
 import logging
+import random
 from common.generate_log import debug
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -8,11 +9,14 @@ logger.setLevel(logging.INFO)
     This serverless function returns the current storm warning
 """
 def stormwarning(event, context):
-    debug("There is a storm warning - Take shelter", 3)
+    stormwarning = random.randint(0,1)
+
+    debug("There is a storm warning - Take shelter",stormwarning, 3, 0)
 
     body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
+        "message": "Stormwarning retrieved successfully",
+        "input": event,
+        "value": stormwarning
     }
 
     logger.info("Hello from somewhere in the cloud! This is the API /stormwarning")

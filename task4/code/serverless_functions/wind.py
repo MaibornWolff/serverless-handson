@@ -1,5 +1,6 @@
 import json
 import logging
+import random
 from common.generate_log import debug
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -8,11 +9,14 @@ logger.setLevel(logging.INFO)
     This serverless function returns the current wind
 """
 def wind(event, context):
-    debug("There is maybe a little bit wind - Be cautious with your hat", 2)
+    wind = random.randint(0,100)
+
+    debug("There is maybe a little bit wind - Be cautious with your hat", wind, 2, 0)
 
     body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
+        "message": "Wind retrieved successfully",
+        "input": event,
+        "value": wind
     }
 
     logger.info("Hello from somewhere in the cloud! This is the API /wind")

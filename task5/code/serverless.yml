@@ -1,3 +1,4 @@
+# Common configuration
 service: task5
 frameworkVersion: ">=1.36.3 <2.0.0"
 
@@ -7,7 +8,6 @@ provider:
   stage: production
   region: eu-central-1
 
-# you can add statements to the Lambda function's IAM Role here
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -15,14 +15,19 @@ provider:
         - "polly:DescribeVoices"
       Resource: "*"
 
+
+
+# Serverless functions configuration
 functions:
+
   voices:
     handler: serverless_functions/voices.handler
     events:
       - http:
           path: voices
           method: get
-          cors: true 
+          cors: true
+
   speechSynthesize:
     handler: serverless_functions/synthesizer.handler
     events:
@@ -37,6 +42,9 @@ functions:
                 voiceId: true
                 outputFormat: true
 
+
+
+# Plugin and custom configuration
 plugins:
   - serverless-finch
 

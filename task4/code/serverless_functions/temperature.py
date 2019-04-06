@@ -1,5 +1,6 @@
 import json
 import logging
+import random
 from common.generate_log import debug
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -9,11 +10,14 @@ logger.setLevel(logging.INFO)
     This serverless function returns the current temperature
 """
 def temperature(event, context):
-    debug("There are high temperatures - Margarita time", 3)
+    temperature = random.randint(30,42)
+
+    debug("There are high temperatures - Margarita time", temperature, 3, 0)
 
     body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
+        "message": "Temperature retrieved successfully",
+        "input": event,
+        "value": temperature
     }
 
     logger.info("Hello from somewhere in the cloud! This is the API /temperature")
