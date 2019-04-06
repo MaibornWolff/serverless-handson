@@ -1,10 +1,10 @@
-service: polly
+service: task5
 frameworkVersion: ">=1.36.3 <2.0.0"
 
 provider:
   name: aws
   runtime: python3.7
-  stage: dev
+  stage: production
   region: eu-central-1
 
 # you can add statements to the Lambda function's IAM Role here
@@ -17,14 +17,14 @@ provider:
 
 functions:
   voices:
-    handler: voices.handler
+    handler: serverless_functions/voices.handler
     events:
       - http:
           path: voices
           method: get
           cors: true 
   speechSynthesize:
-    handler: synthesizer.handler
+    handler: serverless_functions/synthesizer.handler
     events:
       - http:
           path: speech-synthesize

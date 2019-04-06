@@ -74,7 +74,7 @@ fi
 
     assert sls-synth '\\"speech\\":' "serverless invoke -f speechSynthesize -l -p ../../internals/events/polly-demo.json"
 
-    URL=`sls info | grep dev/voices | xargs |cut -d " " -f3`
+    URL=`sls info | grep production/voices | xargs |cut -d " " -f3`
     assert sls-url-given "http" "$URL"
     assert sls-curl-call  "Polly not found" "curl -X GET $URL"
     assert sls-destroy "Stack removal finished..." "sls remove"
