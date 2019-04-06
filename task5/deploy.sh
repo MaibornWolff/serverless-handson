@@ -5,9 +5,8 @@ set -e
 cd code
 yarn
 
-set +e #avoid error in removing stack
-serverless remove 2>&1 >/dev/null  # just in case any stack exists
-set -e
+serverless remove 2>&1 >/dev/null || true  # just in case any stack exists
+
 serverless deploy -v
 BASE_URL=`sls info -v | grep ServiceEndpoint: | xargs |cut -d " " -f2`
 cd - > /dev/null
