@@ -28,16 +28,13 @@ function --- {
 
 --- Setup "preconditions"
 assert python "Python 3" "python3 --version"
-#assert python-alias "Python 3" "python --version"
-assert dialog "/dialog" "whereis dialog"
-assert node-yarn "/yarn" "whereis yarn"
-assert node-npm "/npm" "whereis npm"
-assert sls "/sls" "whereis sls"
-assert serverless "/serverless" "whereis serverless"
-assert jq "/jq" "whereis jq"
-assert xdg-open "/xdg-open" "whereis xdg-open"
+assert node-yarn "/yarn" "which yarn"
+assert node-npm "/npm" "which npm"
+assert sls "/sls" "which sls"
+assert serverless "/serverless" "which serverless"
+assert jq "/jq" "which jq"
+assert xdg-open "/xdg-open" "which xdg-open"
 assert aws-account "AWS_PROFILE" "printenv"
-#assert code "Visual Studio Code" "code -v"
 assert firefox "Mozilla Firefox" "firefox -v"
 
 
