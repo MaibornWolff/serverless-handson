@@ -30,7 +30,11 @@ cd - > /dev/null
 
 #open browser
 if [[ $1 != "--no-browser" ]]; then
-    xdg-open "http://${CLIENT_BUCKET}.s3-website.eu-central-1.amazonaws.com/" 2>&1 > /dev/null
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        open "http://${CLIENT_BUCKET}.s3-website.eu-central-1.amazonaws.com/" 2>&1 > /dev/null
+    else
+        xdg-open "http://${CLIENT_BUCKET}.s3-website.eu-central-1.amazonaws.com/" 2>&1 > /dev/null
+    fi
     sleep 2
-    echo -e "\n\n\n\n"
+    echo -e "\n\n\n\n" # to clear open command outputs which might appear
 fi
