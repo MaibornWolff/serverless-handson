@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  lambdaApiEndpoint: 'https://1tw0psyvy8.execute-api.eu-central-1.amazonaws.com/dev'
+  lambdaApiEndpoint: 'https://0nnaq4tivk.execute-api.eu-central-1.amazonaws.com/production'
 };
 
 /*

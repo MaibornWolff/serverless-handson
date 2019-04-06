@@ -16,10 +16,8 @@ sed -i -E "s?lambdaApiEndpoint:.+?lambdaApiEndpoint: '${BASE_URL}'?g" ./frontend
 
 # build frontend
 cd frontend
-if [[ $1 == "--build" ]]; then
-	yarn
-    node_modules/@angular/cli/bin/ng build --prod
-fi
+yarn install --freeze-lockfile
+node_modules/@angular/cli/bin/ng build
 cd - > /dev/null
 
 # deploy frontend
