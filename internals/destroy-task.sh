@@ -18,12 +18,24 @@ for i in ${RUN_TASKS}; do
         ;;
         2)
             echo "...Task2"
+            cd ../task2/code
+            serverless remove 2>&1 >/dev/null || true
+            cd - > /dev/null
+            rm -rf ../task2/code/.serverless
         ;;
         3)
             echo "...Task3"
+            cd ../task3/code
+            serverless remove 2>&1 >/dev/null || true
+            cd - > /dev/null
+            rm -rf ../task3/code/.serverless
         ;;
         4)
             echo "...Task4"
+            cd ../task4/code
+            serverless remove 2>&1 >/dev/null || true
+            cd - > /dev/null
+            rm -rf ../task4/code/.serverless
         ;;
         5)
             echo "...Task5"
