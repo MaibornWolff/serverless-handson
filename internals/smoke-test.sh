@@ -30,13 +30,12 @@ assert node-yarn "/yarn" "which yarn"
 assert node-npm "/npm" "which npm"
 assert sls "/sls" "which sls"
 assert serverless "/serverless" "which serverless"
-assert jq "/jq" "whereis jq"
+assert jq "/jq" "which jq"
 if [[ "$OSTYPE" == "darwin"* ]]; then
     assert open "/xdg-open" "which open"
 else
     assert xdg-open "/xdg-open" "which xdg-open"
 fi
-
 assert aws-account "AWS_PROFILE" "printenv"
 assert firefox "Mozilla Firefox" "firefox -v"
 
