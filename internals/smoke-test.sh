@@ -24,8 +24,6 @@ function --- {
 }
 ###### LIBRARY-END
 
-
-
 --- Setup "preconditions"
 assert python "Python 3" "python3 --version"
 assert node-yarn "/yarn" "which yarn"
@@ -33,47 +31,59 @@ assert node-npm "/npm" "which npm"
 assert sls "/sls" "which sls"
 assert serverless "/serverless" "which serverless"
 assert jq "/jq" "which jq"
-assert xdg-open "/xdg-open" "which xdg-open"
 assert aws-account "AWS_PROFILE" "printenv"
-assert firefox "Mozilla Firefox" "firefox -v"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    assert open "/open" "which open"
+else
+    assert xdg-open "/xdg-open" "which xdg-open"
+    assert firefox "Mozilla Firefox" "firefox -v"
+fi
 
 
 
 
---- Task1 "monolith"
-assert monolith "localhost:9000" "../task1/code/monolith/monolith_server.py --test-mode"
+#introduce try-catch
+{
+    --- Task1 "monolith"
+    assert monolith "localhost:9000" "../task1/code/monolith/monolith_server.py --test-mode"
 
---- Task1 "serverless (~2min)"
-cd ../task1/
-assert sls-setup "Stack update finished..." "./deploy.sh"
-cd - > /dev/null
+    --- Task1 "serverless (~2min)"
+    cd ../task1/
+    assert sls-setup "Stack update finished..." "./deploy.sh"
+    cd - > /dev/null
 
-cd ../task1/code/
-assert sls-func "Hello from" "serverless invoke -f brightness -l"
+    cd ../task1/code/
+    assert sls-func "Hello from" "serverless invoke -f brightness -l"
 
-# get url from 2nd f(x)
-URL=`sls info | grep production/brightness | xargs |cut -d " " -f3`
-assert sls-curl-call  "Go Serverless" "curl -X GET $URL"
-cd - > /dev/null
+    # get url from 2nd f(x)
+    URL=`sls info | grep production/brightness | xargs |cut -d " " -f3`
+    assert sls-url-given "http" "$URL"
+    assert sls-curl-call  "Go Serverless" "curl -X GET $URL"
+    assert sls-destroy "Stack removal finished..." "sls remove"
+    cd - > /dev/null
 
-assert sls-destroy "Stack removal finished..." "./destroy-task.sh 1"
+    assert cleanup "cleaned" "./destroy-task.sh 5"
 
+    --- Task5 "serverless (~3min)"
+    cd ../task5
+    assert sls-setup "Stack update finished..." "./deploy.sh --no-browser"
+    cd - > /dev/null
 
+    cd ../task5/code/
+    assert sls-voices "Polly not found" "serverless invoke -f voices -l"
 
---- Task5 "serverless (~3min)"
-cd ../task5
-assert sls-setup "Stack update finished..." "./deploy.sh --no-browser"
-cd - > /dev/null
+    assert sls-synth '\\"speech\\":' "serverless invoke -f speechSynthesize -l -p ../../internals/events/polly-demo.json"
 
-cd ../task5/code/
-assert sls-voices "Polly not found" "serverless invoke -f voices -l"
+    URL=`sls info | grep dev/voices | xargs |cut -d " " -f3`
+    assert sls-url-given "http" "$URL"
+    assert sls-curl-call  "Polly not found" "curl -X GET $URL"
+    assert sls-destroy "Stack removal finished..." "sls remove"
+    cd - > /dev/null
 
-assert sls-synth '\\"speech\\":' "serverless invoke -f speechSynthesize -l -p ../../internals/events/polly-demo.json"
+    assert cleanup "cleaned" "./destroy-task.sh 5"
 
-URL=`sls info | grep dev/voices | xargs |cut -d " " -f3`
-assert sls-curl-call  "Polly not found" "curl -X GET $URL"
-cd - > /dev/null
-
-assert sls-destroy "Stack removal finished..." "./destroy-task.sh 5"
-
+}||{
+    echo "failed: Cleanup everything"
+    ./destroy-task.sh
+}
 

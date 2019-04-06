@@ -10,23 +10,23 @@ fi
 for i in ${RUN_TASKS}; do
     case "${i}" in
         1|all)
-            echo "... Task1"
+            echo "...Task1"
             cd ../task1/code
             serverless remove 2>&1 >/dev/null || true
             cd - > /dev/null
             rm -rf ../task1/code/.serverless
         ;;
         2|all)
-            echo "... Task2"
+            echo "...Task2"
         ;;
         3|all)
-            echo "... Task3"
+            echo "...Task3"
         ;;
         4|all)
-            echo "... Task4"
+            echo "...Task4"
         ;;
         5|all)
-            echo "... Task5"
+            echo "...Task5"
             cd ../task5/code
             yarn
             serverless client remove --no-confirm
@@ -37,5 +37,5 @@ for i in ${RUN_TASKS}; do
             rm -rf ../task5/frontend/node_modules
         ;;
     esac
-    echo -e "... cleaned \e[92m✓\e[39m"
+    echo -e "...cleaned \e[92m✓\e[39m"
 done
