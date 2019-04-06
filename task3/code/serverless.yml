@@ -1,18 +1,21 @@
+# Common configuration
 service: task3
 frameworkVersion: ">=1.36.3 <2.0.0"
 
 provider:
   name: aws
   runtime: python3.7
-  stage: dev
+  stage: production
   region: eu-central-1
-
 
 package:
   include:
     - serverless_functions/**
 
+
+# Serverless functions configuration
 functions:
+
   temperature:
     handler: serverless_functions/temperature.temperature
     events:

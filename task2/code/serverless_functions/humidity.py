@@ -3,13 +3,17 @@ import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-def hello(event, context):
+
+"""
+    This serverless function returns the current humidity
+"""
+def humidity(event, context):
     body = {
         "message": "Go Serverless v1.0! Your function executed successfully!",
         "input": event
     }
 
-    logger.info("Hello from somewhere in the cloud! This is hello3")
+    logger.info("Hello from somewhere in the cloud! This is the API /humidity")
 
     response = {
         "statusCode": 200,

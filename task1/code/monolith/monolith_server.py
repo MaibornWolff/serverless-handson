@@ -16,23 +16,13 @@ PORT_NUMBER = 9000
 
 class Server(BaseHTTPRequestHandler):
 
-    def do_POST(self):
-        paths = {
-            '/hello1': {'func': MyApp.hello1, 'data': self.parse_POST()}
-        }
-
-        if self.get_path_only() in paths:
-            self.respond(paths[self.get_path_only()])
-        else:
-            self.respond({'statusCode': 500})
-
     def do_GET(self):
 
         paths = {
-            '/hello2': {'func': MyApp.hello2, 'data': {}},
-            '/hello3': {'func': MyApp.hello3, 'data': {}},
-            '/hello4': {'func': MyApp.hello4, 'data': {}},
-            '/hello5': {'func': MyApp.hello5, 'data': {}}
+            '/brightness':   {'func': MyApp.brightness, 'data': {}},
+            '/wind':         {'func': MyApp.wind, 'data': {}},
+            '/temperature':  {'func': MyApp.temperature, 'data': {}},
+            '/stormwarning': {'func': MyApp.stormwarning, 'data': {}}
         }
 
         if self.get_path_only() in paths:

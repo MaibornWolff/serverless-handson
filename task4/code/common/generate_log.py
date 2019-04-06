@@ -25,7 +25,7 @@ def debug(message, function_id=None):
     if(function_id == None):
         function_id = random.randint(0, 5)
 
-    url = "http://35.156.188.64:9200/myindex/mydoc"
+    url = "http://3.120.207.235:9200/myindex/mydoc"
     headers = {'Content-type': 'application/json'}
     http = urllib3.PoolManager()
     r = http.request("POST", url, body=json.dumps(generate_payload(message, function_id)), headers=headers)
