@@ -2,4 +2,10 @@
 
 cd code
 serverless deploy -v
-cd -
+
+clear
+echo -e "\n_________________________________\n"
+echo -e "\e[33m\e[4mEndpoints:\e[0m"
+sls info| grep  GET
+
+cd - > /dev/null

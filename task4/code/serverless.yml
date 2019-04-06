@@ -1,55 +1,52 @@
+# Common configuration
 service: task4
-frameworkVersion: ">=1.1.0 <2.0.0"
+frameworkVersion: ">=1.36.3 <2.0.0"
 
 provider:
   name: aws
   runtime: python3.7
-  stage: dev
+  stage: production
   region: eu-central-1
 
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
-
-# you can add packaging information here
 package:
   include:
     - serverless_functions/**
 
+
+# Serverless functions configuration
 functions:
-  hello1:
-    handler: serverless_functions/handler1.hello
+
+  brightness:
+    handler: serverless_functions/brightness.brightness
     events:
       - http:
-          path: hello1/{foo}
-          method: post
-          request:
-            parameters:
-              paths:
-                foo: true
-              queries:
-                bar: true
-  hello2:
-    handler: serverless_functions/handler2.hello
-    events:
-      - http:
-          path: hello2
+          path: brightness
           method: get
-  hello3:
-    handler: serverless_functions/handler3.hello
+
+  wind:
+    handler: serverless_functions/wind.wind
     events:
       - http:
-          path: hello3
+          path: wind
           method: get
-  hello4:
-    handler: serverless_functions/handler4.hello
+
+  temperature:
+    handler: serverless_functions/temperature.temperature
     events:
       - http:
-          path: hello4
+          path: temperature
           method: get
-  hello5:
-    handler: serverless_functions/handler5.hello
+
+  stormwarning:
+    handler: serverless_functions/stormwarning.stormwarning
     events:
       - http:
-          path: hello5
+          path: stormwarning
+          method: get
+
+  humidity:
+    handler: serverless_functions/humidity.humidity
+    events:
+      - http:
+          path: humidity
           method: get

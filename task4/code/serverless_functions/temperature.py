@@ -1,16 +1,22 @@
 import json
 import logging
+from common.generate_log import debug
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
-def hello(event, context):
+"""
+    This serverless function returns the current temperature
+"""
+def temperature(event, context):
+    debug("There are high temperatures - Margarita time", 3)
+
     body = {
         "message": "Go Serverless v1.0! Your function executed successfully!",
         "input": event
     }
 
-    logger.info("Hello from somewhere in the cloud! This is hello1")
+    logger.info("Hello from somewhere in the cloud! This is the API /temperature")
 
     response = {
         "statusCode": 200,

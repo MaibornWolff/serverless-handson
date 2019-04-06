@@ -1,3 +1,4 @@
+#IDE
 *.iml
 .idea/*
 
@@ -33,3 +34,7 @@ var/
 #office
 ~$*.ppt*
 ~$*.doc*
+
+# temp
+nohup.out
+yarn.lock
