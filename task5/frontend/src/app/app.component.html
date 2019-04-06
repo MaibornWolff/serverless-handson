@@ -20,5 +20,11 @@
       <button (click)="read($event,player)" id="talk-button" color="primary" mat-raised-button>Talk</button>
     </mat-card-content>
   </mat-card>
+  <!-- player for voice sample -->
   <audio id="player" #player></audio>
+
+  <!-- player for keep bluetooth speaker alive -->
+  <audio #noiseplayer>
+    <source src="/assets/ding.wav" type="audio/wav">
+  </audio>
 </div>
