@@ -1,5 +1,6 @@
 import json
 import logging
+from common.generate_log import monitor
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
@@ -8,12 +9,18 @@ logger.setLevel(logging.INFO)
     This serverless function returns the current temperature
 """
 def temperature(event, context):
+    group_number = 1
+
 
     temperature_kelvin = 305.15
     logger.info("This is the current temperature from a sensor: "+str(temperature_kelvin)+" in kelvin")
 
+
     temperature = convert_kelvin_to_fahrenheit(temperature_kelvin)
     logger.info("This is the converted temperature: "+str(temperature))
+
+
+    monitor("Sent temperature to monitoring", group_number, temperature)
 
 
     response_body = {
