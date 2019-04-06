@@ -1,11 +1,6 @@
 #!/bin/bash -e
 
-if [[ $# -eq 0 ]]; then
-    RUN_TASKS="1 2 3 4 5"
-    echo "Delete all"
-else
-    RUN_TASKS=$1
-fi
+RUN_TASKS=`test $# -eq 0 && echo "1 2 3 4 5" || echo $1`
 
 for i in ${RUN_TASKS}; do
     case "${i}" in
@@ -41,7 +36,7 @@ for i in ${RUN_TASKS}; do
             echo "...Task5"
             cd ../task5/code
             yarn
-            serverless client remove --no-confirm
+            serverless client remove --no-confirm 2>&1 >/dev/null || true
             serverless remove 2>&1 >/dev/null || true
             cd - > /dev/null
             rm -rf ../task5/code/.serverless
