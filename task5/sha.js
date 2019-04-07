@@ -1,13 +1,6 @@
 const crypto = require("crypto");
-
-var arped = require('./code/node_modules/get-mac-address');
-
-function shortSha256(data) {
-    return crypto.createHash("sha256").update(data).digest("hex");
-}
+var shell = require('./code/node_modules/shelljs');
 
 module.exports = (serverless) => {
-    let localMacAddress = arped[Object.keys(arped).slice(-1).pop()]
-    let hash = shortSha256( localMacAddress ).slice(-6);
-    return hash;
+    return shell.exec("aws iam list-users --output json| jq '.Users[0].UserName'| tr -d \\\"",{silent:true}).stdout
 }

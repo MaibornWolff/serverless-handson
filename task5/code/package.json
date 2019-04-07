@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "get-mac-address": "^1.0.0",
-    "serverless-finch": "^2.4.2"
+    "serverless-finch": "^2.4.2",
+    "shelljs": "^0.8.3"
   }
 }
