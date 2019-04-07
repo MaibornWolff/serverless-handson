@@ -130,7 +130,7 @@ fi
             5)
                 --- Task5 "serverless (~3min)"
                 cd ../task5
-                assert sls-setup "Stack update finished..." "./deploy.sh --no-browser"
+                assert sls-setup "Success! Your site should be available at" "./deploy.sh --no-browser"
                 cd - > /dev/null
 
                 cd ../task5/code/

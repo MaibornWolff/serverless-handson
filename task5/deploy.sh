@@ -11,22 +11,19 @@ serverless deploy -v
 BASE_URL=`sls info -v | grep ServiceEndpoint: | xargs |cut -d " " -f2`
 cd - > /dev/null
 
-mkdir -p frontend/src/environments
-echo "export const environment = {
-  production: false,
-  lambdaApiEndpoint: '${BASE_URL}'
-};" > frontend/src/environments/environment.ts
-
-echo "export const environment = {
-  production: true,
-  lambdaApiEndpoint: '${BASE_URL}'
-};" > frontend/src/environments/environment.prod.ts
+# pass lambda endpoint
+echo "window.LAMBDA_ENDPOINT = \"${BASE_URL}\";" > frontend/src/assets/endpoint.js
 
 # build frontend
 cd frontend
-yarn install --frozen-lockfile
-node_modules/@angular/cli/bin/ng build
+if [[ $1 == "--build" ]]; then
+	yarn install --frozen-lockfile
+    node_modules/@angular/cli/bin/ng build --prod
+fi
 cd - > /dev/null
+
+# copy manually, cause angular ignores js files in assets (and for a good reason, but nevermind)
+cp frontend/src/assets/endpoint.js frontend/dist/assets/endpoint.js
 
 # deploy frontend
 cd code
