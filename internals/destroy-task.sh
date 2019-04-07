@@ -35,7 +35,8 @@ for i in ${RUN_TASKS}; do
         5)
             echo "...Task5"
             cd ../task5/code
-            yarn
+            # install sls plugins to be able to remove
+            yarn install --freeze-lockfile
             # avoid unecessary removes --> see https://stackoverflow.com/a/16553056
             # serverless client remove --no-confirm 2>&1 >/dev/null || true
             serverless remove 2>&1 >/dev/null || true
