@@ -17,7 +17,7 @@ echo "window.LAMBDA_ENDPOINT = \"${BASE_URL}\";" > frontend/src/assets/endpoint.
 cd frontend
 if [[ $1 == "--build" ]]; then
 	yarn install --frozen-lockfile
-    node_modules/@angular/cli/bin/ng build
+    node_modules/@angular/cli/bin/ng build --prod
 fi
 cd - > /dev/null
 
