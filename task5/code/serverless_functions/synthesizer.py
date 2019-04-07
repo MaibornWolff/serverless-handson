@@ -1,31 +1,36 @@
 import base64
 import json
-import logging
 import boto3
-from collections import namedtuple
+import sys
 from botocore.exceptions import BotoCoreError, ClientError
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-
-# defined data types for easier handling
-defaultHeader = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
-}
-fields = ("statusCode", "body", "headers", "isBase64Encoded")
-Response = namedtuple("HTTPResponse", fields, defaults=(None, None, defaultHeader, False))
+from config.general import AUDIO_FORMATS, logger, Response
 
 polly = boto3.client('polly')
 
-# Mapping the output format used in the client to the content type for the response
-AUDIO_FORMATS = {"ogg_vorbis": "audio/ogg", "mp3": "audio/mpeg", "pcm": "audio/wave; codecs=1"}
+
+def synthesizer(event: dict, context: dict) -> dict:
+
+    text, voice_id, output_format = get_validated_parameters_from_request(event)
+
+    try:
+        # Request speech synthesis
+        synthesized_text = polly\
+            .synthesize_speech(Text=text, VoiceId=voice_id, OutputFormat=output_format)\
+            .get("AudioStream")\
+            .read()
+
+        response = encode_for_response(synthesized_text)
+
+        return Response(200, response).as_dict()
+
+    except (BotoCoreError, ClientError) as err:
+        # The service returned an error
+        logger.error("error fetching polly response" + str(err))
+        return Response(200, str(err)).as_dict()
 
 
-# see also https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/polly.html
-
-def handler(event: dict, context: dict) -> dict:
-    """Handles routing for reading text (speech synthesis)"""
+def get_validated_parameters_from_request(event: dict)-> (str, str, str):
 
     logger.info(event)
 
@@ -39,17 +44,10 @@ def handler(event: dict, context: dict) -> dict:
 
     if len(text) == 0 or len(voice_id) == 0 or output_format not in AUDIO_FORMATS:
         logger.error("Bad request: wrong parameters")
-    else:
-        try:
-            # Request speech synthesis
-            synthesized_text = polly.synthesize_speech(Text=text,
-                                                       VoiceId=voice_id,
-                                                       OutputFormat=output_format).get("AudioStream").read()
+        sys.exit(1)
 
-            response = json.dumps({'speech': base64.b64encode(synthesized_text).decode("utf-8")})
+    return text, voice_id, output_format
 
-            return dict(Response(statusCode=200, body=response)._asdict())
 
-        except (BotoCoreError, ClientError) as err:
-            # The service returned an error
-            logger.error("error fetching polly response" + str(err))
+def encode_for_response(data: str) -> str:
+    return json.dumps({'speech': base64.b64encode(data).decode("utf-8")})

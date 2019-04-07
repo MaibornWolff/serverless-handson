@@ -21,7 +21,7 @@ provider:
 functions:
 
   voices:
-    handler: serverless_functions/voices.handler
+    handler: serverless_functions/voices.voices
     events:
       - http:
           path: voices
@@ -29,7 +29,7 @@ functions:
           cors: true
 
   speechSynthesize:
-    handler: serverless_functions/synthesizer.handler
+    handler: serverless_functions/synthesizer.synthesizer
     events:
       - http:
           path: speech-synthesize

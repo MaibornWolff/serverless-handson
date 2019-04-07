@@ -1,57 +1,38 @@
 import json
 import boto3
-import logging
-from collections import namedtuple
 from botocore.exceptions import BotoCoreError, ClientError
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-
 # defined data types for easier handling
-defaultHeader = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
-}
-fields = ("statusCode", "body", "headers", "isBase64Encoded")
-Response = namedtuple("HTTPResponse", fields, defaults=(None, None, defaultHeader, False))
+from config.general import Response, logger
 
-
-#
 # COMMENT IN HERE!!!
-# polly = boto3.client('polly')
-#
-
-# Mapping the output format used in the client to the content type for the response
-AUDIO_FORMATS = {"ogg_vorbis": "audio/ogg", "mp3": "audio/mpeg", "pcm": "audio/wave; codecs=1"}
+#polly = boto3.client('polly')
 
 
-# see also https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/polly.html
+def voices(event: dict, context: dict) -> dict:
+    try:
+        voices = get_voices_from_polly_api(polly)
+    except NameError:
+        return Response(501, "Polly not found").as_dict()
 
-def handler(event: dict, context: dict) -> dict:
-    """Handles routing for listing available voices"""
+    except (BotoCoreError, ClientError) as err:
+        # The service returned an error
+        logger.error("error fetching polly response" + str(err))
+        return Response(500, str(err)).as_dict()
+
+    return Response(200, json.dumps(voices)).as_dict()
+
+
+def get_voices_from_polly_api(polly_client) -> list:
     params = {}
-    voices = []
+    return_value = []
 
     while True:
-        try:
-            # Request list of available voices, if a continuation token
-            # was returned by the previous call then use it to continue
-            # listing
-            response = polly.describe_voices(**params)
-        except NameError:
-            return dict(Response(statusCode=501, body="Polly not found")._asdict())
-        except (BotoCoreError, ClientError) as err:
-            # The service returned an error
-            return dict(Response(statusCode=500, body=str(err))._asdict())
+        response = polly_client.describe_voices(**params)
+        return_value.extend(response.get("Voices", []))
 
-        # Collect all the voices
-        voices.extend(response.get("Voices", []))
-
-        # If a continuation token was returned continue, stop iterating
-        # otherwise
         if "NextToken" in response:
             params = {"NextToken": response["NextToken"]}
         else:
             break
-
-    return dict(Response(statusCode=200, body=json.dumps(voices))._asdict())
+    return return_value
