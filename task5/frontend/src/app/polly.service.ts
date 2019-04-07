@@ -13,6 +13,11 @@ export interface SpeechSynthResponse {
   speech: string;
 }
 
+declare global {
+  interface Window { LAMBDA_ENDPOINT: string; }
+}
+window.LAMBDA_ENDPOINT = window.LAMBDA_ENDPOINT || '';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +25,6 @@ export class PollyService {
 
   voicesEndpoint = 'voices';
   speechSynthesizeEndpoint = 'speech-synthesize';
-  lambdaUrl = '';
 
   constructor(private http: HttpClient) {
   }
