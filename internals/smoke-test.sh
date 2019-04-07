@@ -59,12 +59,12 @@ fi
                 cd - > /dev/null
 
                 cd ../task1/code/
-                assert sls-func "Hello from" "serverless invoke -f brightness -l"
+                assert sls-func "This method is empty" "serverless invoke -f brightness -l"
 
                 # get url from 2nd f(x)
                 URL=`sls info | grep production/brightness | xargs |cut -d " " -f3`
                 assert sls-url-given "http" "$URL"
-                assert sls-curl-call  "Go Serverless" "curl -X GET $URL"
+                assert sls-curl-call  "This method is empty" "curl -X GET $URL"
                 assert sls-destroy "Stack removal finished..." "sls remove"
                 cd - > /dev/null
 

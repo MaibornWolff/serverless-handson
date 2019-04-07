@@ -8,16 +8,13 @@ logger.setLevel(logging.INFO)
     This serverless function returns the current brightness
 """
 def brightness(event, context):
-    body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
-    }
 
-    logger.info("Hello from somewhere in the cloud! This is the API /brightness")
+    #TODO: Override this method body with the one from the monolith_app.py -> def brightness()
+    #      Please copy only the body, not the method name + parameters
 
     response = {
-        "statusCode": 200,
-        "body": json.dumps(body)
+        "statusCode": 400,
+        "body": "This method is empty, please migrate monolith logic"
     }
 
     return response
