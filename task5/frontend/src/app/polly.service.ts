@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {environment} from '../environments/environment';
 
 export interface Voice {
   Gender: string;
@@ -14,7 +13,6 @@ export interface SpeechSynthResponse {
   speech: string;
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,20 +20,17 @@ export class PollyService {
 
   voicesEndpoint = 'voices';
   speechSynthesizeEndpoint = 'speech-synthesize';
+  lambdaUrl = '';
 
   constructor(private http: HttpClient) {
   }
 
-  getServiceEndPoint() {
-    if (environment.lambdaApiEndpoint.slice(-1) !== '/') {
-      return environment.lambdaApiEndpoint + '/';
-    } else {
-      return environment.lambdaApiEndpoint;
-    }
+   static getServiceEndPoint(): string {
+    return window.LAMBDA_ENDPOINT;
   }
 
   getVoices() {
-    return this.http.get(this.getServiceEndPoint() + this.voicesEndpoint);
+    return this.http.get(PollyService.getServiceEndPoint() + this.voicesEndpoint);
   }
 
 
@@ -46,7 +41,7 @@ export class PollyService {
     queryParams = queryParams.append('text', text);
     queryParams = queryParams.append('outputFormat', outputFormat);
 
-    return this.http.get(this.getServiceEndPoint() + this.speechSynthesizeEndpoint, {params: queryParams});
+    return this.http.get(PollyService.getServiceEndPoint() + this.speechSynthesizeEndpoint, {params: queryParams});
   }
 
 }

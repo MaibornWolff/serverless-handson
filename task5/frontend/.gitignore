@@ -12,6 +12,8 @@
 /dist
 # dependencies
 /node_modules
+# will be generated
+*/assets/endpoint.js
 
 # profiling files
 chrome-profiler-events.json
