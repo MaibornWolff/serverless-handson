@@ -10,7 +10,7 @@ sls info| grep  GET
 
 echo -e "\n_________________________________\n"
 echo -e "\e[33m\e[4mAWS Web Console Login:\e[0m"
-AWS_ACCOUNT=$(aws iam list-users | cut -d ':' -f5)
+AWS_ACCOUNT=$(aws iam list-users --output json| jq ".Users[0].UserName" | tr -d \")
 echo -e "  URL:     https://cloud-school-${AWS_ACCOUNT}-account.signin.aws.amazon.com/console/"
 
 echo "  User:     ${AWS_ACCOUNT}"
