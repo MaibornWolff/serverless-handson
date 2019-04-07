@@ -14,7 +14,9 @@ export interface SpeechSynthResponse {
 }
 
 declare global {
-  interface Window { LAMBDA_ENDPOINT: string; }
+  interface Window {
+    LAMBDA_ENDPOINT: string;
+  }
 }
 window.LAMBDA_ENDPOINT = window.LAMBDA_ENDPOINT || '';
 
@@ -29,14 +31,17 @@ export class PollyService {
   constructor(private http: HttpClient) {
   }
 
-   static getServiceEndPoint(): string {
-    return window.LAMBDA_ENDPOINT;
+  static getServiceEndPoint(): string {
+    if (window.LAMBDA_ENDPOINT.slice(-1) !== '/') {
+      return window.LAMBDA_ENDPOINT + '/';
+    } else {
+      return window.LAMBDA_ENDPOINT;
+    }
   }
 
   getVoices() {
     return this.http.get(PollyService.getServiceEndPoint() + this.voicesEndpoint);
   }
-
 
   speechSynthesize(voiceID: string, text: string, outputFormat: string) {
 
