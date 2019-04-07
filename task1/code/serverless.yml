@@ -13,6 +13,7 @@ package:
     - serverless_functions/**
   exclude:
     - monolith/**
+    - hint/**
 
 
 # Serverless functions configuration
