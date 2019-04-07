@@ -11,7 +11,7 @@ logger.setLevel(logging.INFO)
 def stormwarning(event, context):
     stormwarning = random.randint(0,1)
 
-    debug("There is a storm warning - Take shelter",stormwarning, 3, 0)
+    debug("There is a storm warning - Take shelter",stormwarning)
 
     body = {
         "message": "Stormwarning retrieved successfully",

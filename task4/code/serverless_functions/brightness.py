@@ -12,7 +12,7 @@ logger.setLevel(logging.INFO)
 def brightness(event, context):
     brightness = random.randint(0,100)
 
-    debug("There will be sunshine", brightness, 1, 0)
+    debug("There will be sunshine", brightness)
 
     body = {
         "message": "Brightness retrieved successfully",

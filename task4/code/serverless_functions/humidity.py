@@ -12,7 +12,7 @@ logger.setLevel(logging.INFO)
 def humidity(event, context):
     humidity = random.randint(0,120)
 
-    debug("There is will be rain - Take an umbrella with you", humidity, 5, 0)
+    debug("There is will be rain - Take an umbrella with you", humidity)
 
     body = {
         "message": "Humidity retrieved successfully",

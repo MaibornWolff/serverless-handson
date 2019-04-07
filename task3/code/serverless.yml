@@ -7,6 +7,9 @@ provider:
   runtime: python3.7
   stage: production
   region: eu-central-1
+  environment:
+    GROUP_ID: ${env:GROUP_ID}
+    ELASTIC_URL: http://3.120.207.235:9200/myindex/mydoc
 
 package:
   include:
@@ -22,3 +25,5 @@ functions:
       - http:
           path: temperature
           method: get
+    environment:
+      FUNCTION_ID: 3

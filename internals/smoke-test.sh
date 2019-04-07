@@ -89,6 +89,9 @@ fi
             ;;
             3)
                 --- Task3 "serverless (~2min)"
+                # precondition
+                export GROUP_ID=99
+
                 cd ../task3/
                 assert sls-setup "Stack update finished..." "./deploy.sh"
                 cd - > /dev/null
@@ -106,6 +109,9 @@ fi
             ;;
             4)
                 --- Task4 "serverless (~2min)"
+                # precondition
+                export GROUP_ID=88
+
                 cd ../task4/
                 assert sls-setup "Stack update finished..." "./deploy.sh"
                 cd - > /dev/null

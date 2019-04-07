@@ -9,8 +9,6 @@ logger.setLevel(logging.INFO)
     This serverless function returns the current temperature
 """
 def temperature(event, context):
-    group_number = 1
-
 
     temperature_kelvin = 305.15
     logger.info("This is the current temperature from a sensor: "+str(temperature_kelvin)+" in kelvin")
@@ -20,7 +18,7 @@ def temperature(event, context):
     logger.info("This is the converted temperature: "+str(temperature))
 
 
-    monitor("Sent temperature to monitoring", group_number, temperature)
+    monitor("Sent temperature to monitoring", temperature)
 
 
     response_body = {

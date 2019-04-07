@@ -12,7 +12,7 @@ logger.setLevel(logging.INFO)
 def temperature(event, context):
     temperature = random.randint(30,42)
 
-    debug("There are high temperatures - Margarita time", temperature, 3, 0)
+    debug("There are high temperatures - Margarita time", temperature)
 
     body = {
         "message": "Temperature retrieved successfully",

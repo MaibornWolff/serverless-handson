@@ -1,5 +1,10 @@
 #!/bin/bash -e
 
+if [[ -z "${GROUP_ID}" ]]; then
+    echo "[ERROR] GROUP_ID is not set as environment variable"
+    exit 1
+fi
+
 cd code
 serverless deploy -v
 

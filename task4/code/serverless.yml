@@ -7,6 +7,9 @@ provider:
   runtime: python3.7
   stage: production
   region: eu-central-1
+  environment:
+    ELASTIC_URL: http://3.120.207.235:9200/myindex/mydoc
+    GROUP_ID: ${env:GROUP_ID}
 
 package:
   include:
@@ -24,6 +27,8 @@ functions:
       - http:
           path: brightness
           method: get
+    environment:
+      FUNCTION_ID: 1
 
   wind:
     handler: serverless_functions/wind.wind
@@ -31,6 +36,8 @@ functions:
       - http:
           path: wind
           method: get
+    environment:
+      FUNCTION_ID: 2
 
   temperature:
     handler: serverless_functions/temperature.temperature
@@ -38,6 +45,8 @@ functions:
       - http:
           path: temperature
           method: get
+    environment:
+      FUNCTION_ID: 3
 
   stormwarning:
     handler: serverless_functions/stormwarning.stormwarning
@@ -45,6 +54,8 @@ functions:
       - http:
           path: stormwarning
           method: get
+    environment:
+      FUNCTION_ID: 4
 
   humidity:
     handler: serverless_functions/humidity.humidity
@@ -52,3 +63,5 @@ functions:
       - http:
           path: humidity
           method: get
+    environment:
+      FUNCTION_ID: 5

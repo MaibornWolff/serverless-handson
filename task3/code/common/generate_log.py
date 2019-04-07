@@ -4,6 +4,7 @@ import logging
 import random
 import urllib3.request
 import json
+import os
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -23,13 +24,29 @@ def generate_payload(message, function_id, group_id, temperature):
     return payload
 
 
-def monitor(message, group_id, temperature):
+def monitor(message, temperature):
     logger.info("Log message in Elastic - "+message)
 
-    # this is only used with function3
-    function_id = 3
+    try:
+        function_id = os.environ['FUNCTION_ID']
+        function_id = int(function_id)
+    except ValueError:
+        raise ValueError("Environment variable FUNCTION_ID cant be retrieved")
 
-    elastic_url = "http://3.120.207.235:9200/myindex/mydoc"
+    try:
+        group_id = os.environ['GROUP_ID']
+        group_id = int(group_id)
+    except ValueError:
+        raise ValueError("Environment variable GROUP_ID cant be retrieved")
+
+    try:
+        elastic_url = os.environ['ELASTIC_URL']
+        if not elastic_url:
+            logger.error("Environment variable ELASTIC_URL is empty")
+            raise ValueError()
+    except ValueError:
+        raise ValueError("Environment variable ELASTIC_URL cant be retrieved")
+
     elastic_headers = {'Content-type': 'application/json'}
     http = urllib3.PoolManager()
     r = http.request("POST", elastic_url, body=json.dumps(generate_payload(message, function_id, group_id, temperature)), headers=elastic_headers)

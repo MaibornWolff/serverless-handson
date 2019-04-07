@@ -11,7 +11,7 @@ logger.setLevel(logging.INFO)
 def wind(event, context):
     wind = random.randint(0,100)
 
-    debug("There is maybe a little bit wind - Be cautious with your hat", wind, 2, 0)
+    debug("There is maybe a little bit wind - Be cautious with your hat", wind)
 
     body = {
         "message": "Wind retrieved successfully",
