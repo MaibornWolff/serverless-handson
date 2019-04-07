@@ -24,10 +24,8 @@ echo "export const environment = {
 
 # build frontend
 cd frontend
-if [[ $1 == "--build" ]]; then
-	yarn install --frozen-lockfile
-    node_modules/@angular/cli/bin/ng build
-fi
+yarn install --frozen-lockfile
+node_modules/@angular/cli/bin/ng build
 cd - > /dev/null
 
 # deploy frontend
