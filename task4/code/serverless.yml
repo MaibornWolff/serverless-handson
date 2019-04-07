@@ -16,7 +16,7 @@ package:
     - serverless_functions/**
   exclude:
     - load_generator/**
-
+    - hint/**
 
 # Serverless functions configuration
 functions:
