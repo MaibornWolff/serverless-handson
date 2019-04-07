@@ -39,7 +39,7 @@ var/
 nohup.out
 #Keep it -> deterministic deployment & building!
 #yarn.lock
-dist/
+#dist/
 
 # will be generated
 **/assets/endpoint.js

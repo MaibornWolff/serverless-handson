@@ -9,7 +9,7 @@
 /out-tsc
 # Only exists if Bazel was run
 /bazel-out
-/dist
+#/dist
 # dependencies
 /node_modules
 # will be generated
