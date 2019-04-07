@@ -1,7 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # environment files will be modified on build
-environment.*ts
+# environment.*ts
 
 # compiled output
 #/dist ## add compiled resources
@@ -9,9 +9,11 @@ environment.*ts
 /out-tsc
 # Only exists if Bazel was run
 /bazel-out
-/dist
+#/dist
 # dependencies
 /node_modules
+# will be generated
+*/assets/endpoint.js
 
 # profiling files
 chrome-profiler-events.json

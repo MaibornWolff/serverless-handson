@@ -30,12 +30,21 @@ export class AppComponent implements OnInit {
   /**
    * Plays a very silent sound to keep the bluetooth speaker alive
    */
-  static playPingSound(player: HTMLAudioElement) {
-    console.log(player);
+  playPingSound(player: HTMLAudioElement) {
     player.loop = true;
     player.volume = 0.001; // ~0.1 sone with 100% pc speaker volume
+
     player.load();
-    player.play();
+    player.play().catch((err) => console.log('could not play ping sound: ' + err.message));
+  }
+
+  showError(msg: string, durationInMs: number = null) {
+    this.snackBar.open(msg, null, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: durationInMs,
+      panelClass: 'snack-error'
+    });
   }
 
   ngOnInit(): void {
@@ -44,14 +53,9 @@ export class AppComponent implements OnInit {
         const germanVoices = this.voices.filter(v => v.LanguageCode === 'de-DE');
         this.selectedVoice = germanVoices[Math.floor(Math.random() * germanVoices.length)].Id;
       },
-      () => {
-        this.snackBar.open('Could not find any voice', null, {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'snack-error'
-        });
-      });
-    AppComponent.playPingSound(this.noisePlayer.nativeElement);
+      () => this.showError('Could not find any voice')
+    );
+    this.playPingSound(this.noisePlayer.nativeElement);
   }
 
   /**
@@ -71,17 +75,9 @@ export class AppComponent implements OnInit {
         const speech = response as SpeechSynthResponse;
         player.setAttribute('src', 'data:' + AUDIO_FORMATS[supportedAudioFormat] + ';base64,' + speech.speech);
         player.load();
-        player.play();
+        player.play().catch((err) => this.showError('could not play sound: ' + err.message, 5000));
       },
-      (err) => {
-        this.snackBar.open(err.message, null, {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-          duration: 5000,
-          panelClass: 'snack-error'
-        });
-      }
+      (err) => this.showError(err.message, 5000)
     );
   }
-
 }
