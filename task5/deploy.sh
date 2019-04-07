@@ -11,6 +11,7 @@ serverless deploy -v
 BASE_URL=`sls info -v | grep ServiceEndpoint: | xargs |cut -d " " -f2`
 cd - > /dev/null
 
+# pass lambda endpoint
 echo "window.LAMBDA_ENDPOINT = \"${BASE_URL}\";" > frontend/src/assets/endpoint.js
 
 # build frontend
@@ -20,6 +21,9 @@ if [[ $1 == "--build" ]]; then
     node_modules/@angular/cli/bin/ng build --prod
 fi
 cd - > /dev/null
+
+# copy manually, cause angular ignores js files in assets (and for a good reason, but nevermind)
+cp frontend/src/assets/endpoint.js frontend/dist/assets/endpoint.js
 
 # deploy frontend
 cd code
