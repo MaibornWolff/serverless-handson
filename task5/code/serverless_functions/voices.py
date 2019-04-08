@@ -5,8 +5,8 @@ from botocore.exceptions import BotoCoreError, ClientError
 # defined data types for easier handling
 from config.general import Response, logger
 
-# COMMENT IN HERE!!!
-#polly = boto3.client('polly')
+
+polly = boto3.client('polly')
 
 
 def voices(event: dict, context: dict) -> dict:

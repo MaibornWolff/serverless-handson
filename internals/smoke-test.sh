@@ -134,13 +134,13 @@ fi
                 cd - > /dev/null
 
                 cd ../task5/code/
-                assert sls-voices "Polly not found" "serverless invoke -f voices -l"
+                assert sls-voices "Gender" "serverless invoke -f voices -l"
 
                 assert sls-synth '\\"speech\\":' "serverless invoke -f speechSynthesize -l -p ../../internals/events/polly-demo.json"
 
                 URL=`sls info | grep production/voices | xargs |cut -d " " -f3`
                 assert sls-url-given "http" "$URL"
-                assert sls-curl-call  "Polly not found" "curl -X GET $URL"
+                assert sls-curl-call  "\"Gender\": \"Female\"" "curl -X GET $URL"
                 assert sls-destroy "Stack removal finished..." "sls remove"
                 cd - > /dev/null
 
