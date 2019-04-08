@@ -45,10 +45,3 @@ functions:
       - http:
           path: stormwarning
           method: get
-
-  humidity:
-    handler: serverless_functions/humidity.humidity
-    events:
-      - http:
-          path: humidity
-          method: get
