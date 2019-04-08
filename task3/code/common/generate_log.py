@@ -24,7 +24,7 @@ def generate_payload(message, function_id, group_id, temperature):
     return payload
 
 
-def monitor(message, temperature):
+def send_to_monitor(message, temperature):
     logger.info("Log message in Elastic - "+message)
 
     try:
