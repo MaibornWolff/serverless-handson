@@ -14,21 +14,21 @@ def call(url, request_type):
         if request_type == "GET":
             r = requests.get(url=url)
         elif request_type == "POST":
-            r = requests.post(url=url+"/"+"fooParameter")
+            r = requests.post(url=url + "/" + "fooParameter")
         else:
-            raise Exception("unknown request type"+request_type)
+            raise Exception("unknown request type" + request_type)
     except KeyboardInterrupt:
         sys.exit(0)
     except Exception as ex:
-        print ("ProcessId:", os.getpid(), "Connection Error happend, will be ignored")
-        print (ex)
+        print("ProcessId:", os.getpid(), "Connection Error happend, will be ignored")
+        print(ex)
         return 0
 
-    if(r.status_code == 200 and r.reason == "OK"):
+    if (r.status_code == 200 and r.reason == "OK"):
         return r.content
     else:
-        raise Exception('Elastic API didnt response as expected', {'statusCode': r.status_code, 'reason': r.reason, 'content': r.content})
-
+        raise Exception('Elastic API didnt response as expected',
+                        {'statusCode': r.status_code, 'reason': r.reason, 'content': r.content})
 
 
 class CallInfo():
@@ -46,14 +46,14 @@ class CallInfo():
         self.request_type = request_type
 
     def start_processes(self, request_per_second):
-        url = str(self.base_url)+str(self.function_id)
+        url = str(self.base_url) + str(self.function_id)
         index = 0
 
         try:
             while index < request_per_second:
-                p = Process(target=call, args=(url,self.request_type))
+                p = Process(target=call, args=(url, self.request_type))
                 p.start()
-                index +=1
+                index += 1
         except KeyboardInterrupt:
             sys.exit(0)
 
@@ -66,16 +66,17 @@ class CallInfo():
                 start = time.time()
                 self.start_processes(self.requests_per_second)
                 end = time.time()
-                delay = 1-(end-start)
+                delay = 1 - (end - start)
 
-                print("Function:", self.function_id, "- ProcessId:", os.getpid(), "- Counter:", runtime_in_seconds, "- ", "Duration: ", round(end - start,3),
+                print("Function:", self.function_id, "- ProcessId:", os.getpid(), "- Counter:", runtime_in_seconds,
+                      "- ", "Duration: ", round(end - start, 3),
                       "seconds - Time:",
                       str(datetime.datetime.now().time()))
             finally:
                 try:
                     runtime_in_seconds -= 1
                     if runtime_in_seconds > 0:
-                        s.enter(delay=delay, priority=1, action=run_task,argument=(runtime_in_seconds,))
+                        s.enter(delay=delay, priority=1, action=run_task, argument=(runtime_in_seconds,))
                 except KeyboardInterrupt:
                     sys.exit(0)
 
@@ -100,15 +101,14 @@ if __name__ == '__main__':
     try:
         function_id = int(input_function_id)
     except ValueError:
-        print("Input was was not an number: "+input_function_id)
+        print("Input was was not an number: " + input_function_id)
         exit(1)
 
-    if function_id not in range(1,6):
+    if function_id not in range(1, 6):
         print("Value was not between 1 and 5")
         exit(1)
 
-    print("")
-    print("Hit enter as often as you like to get the newest value")
+    print("\nHit enter as often as you like to get the newest value")
     print("For leaving this program type: exit")
     print("")
 
@@ -118,5 +118,5 @@ if __name__ == '__main__':
         if keypress == "exit":
             exit(0)
         else:
-            response = call(functions[function_id-1], "GET")
-            print("API returned: "+str(json.loads(response)["value"]))
+            response = call(functions[function_id - 1], "GET")
+            print("API returned: " + str(json.loads(response)["value"]))
