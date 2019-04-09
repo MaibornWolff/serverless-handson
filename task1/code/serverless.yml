@@ -11,6 +11,7 @@ provider:
 package:
   include:
     - serverless_functions/**
+    - common/**
   exclude:
     - monolith/**
     - hint/**

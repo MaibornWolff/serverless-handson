@@ -90,7 +90,7 @@ class CallInfo():
 if __name__ == '__main__':
     functions = sys.argv[1:]
 
-    print("Which function you would choose if there are dark clouds coming up?")
+    print("Which function would you choose if there are dark clouds coming up?")
     print("[1] brightness")
     print("[2] wind")
     print("[3] temperature")
@@ -108,8 +108,9 @@ if __name__ == '__main__':
         print("Value was not between 1 and 5")
         exit(1)
 
-    print("\nHit enter as often as you like to get the newest value")
     print("For leaving this program type: exit")
+    print("Hit enter as often as you like to get the newest value")
+
     print("")
 
     while True:

@@ -42,6 +42,7 @@ else
     assert firefox "Mozilla Firefox" "firefox -v"
 fi
 assert GROUP_ID "\"UserName\": \"${GROUP_ID}\"" "aws iam list-users --output json "
+assert kibana-exists "Kibana" "curl -X GET http://3.120.207.235:5601/app/kibana"
 
 
 
@@ -60,12 +61,12 @@ assert GROUP_ID "\"UserName\": \"${GROUP_ID}\"" "aws iam list-users --output jso
                 cd - > /dev/null
 
                 cd ../task1/code/
-                assert sls-func "This method is empty" "serverless invoke -f brightness -l"
+                assert sls-func "unexpected EOF while parsing" "serverless invoke -f brightness -l"
 
                 # get url from 2nd f(x)
                 URL=`sls info | grep production/brightness | xargs |cut -d " " -f3`
                 assert sls-url-given "http" "$URL"
-                assert sls-curl-call  "This method is empty" "curl -X GET $URL"
+                assert sls-curl-call  "Internal server error" "curl -X GET $URL" "show"
                 assert sls-destroy "Stack removal finished..." "sls remove"
                 cd - > /dev/null
 
@@ -78,11 +79,11 @@ assert GROUP_ID "\"UserName\": \"${GROUP_ID}\"" "aws iam list-users --output jso
                 cd - > /dev/null
 
                 cd ../task2/code/
-                assert sls-func "Go Serverless v1.0" "serverless invoke -f temperature -l"
+                assert sls-func "Your serverless function executed successfully!" "serverless invoke -f wind -l"
 
                 URL=`sls info | grep production/brightness | xargs |cut -d " " -f3`
-                 assert sls-url-given "http" "$URL"
-                assert sls-curl-call  "Go Serverless" "curl -X GET $URL"
+                assert sls-url-given "http" "$URL"
+                assert sls-curl-call  "Your serverless function executed successfully!" "curl -X GET $URL"
                 assert sls-destroy "Stack removal finished..." "sls remove"
                 cd - > /dev/null
 

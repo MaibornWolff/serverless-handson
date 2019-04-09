@@ -1,20 +1,11 @@
-import json
-import logging
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+from common import logger
+from common import response
 
 """
-    This serverless function returns the current wind
+    This serverless function returns the current brightness
 """
 def wind(event, context):
 
-    #TODO: Override this method body with the one from the monolith_app.py -> def wind()
-    #      Please copy only the body, not the method name + parameters
-
-    response = {
-        "statusCode": 400,
-        "body": "This method is empty, please migrate monolith logic"
-    }
-
-    return response
+    #TODO: Override this method body with the one from the monolith_app.py
+    #      Copy only the content under: def method()
 

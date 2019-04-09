@@ -11,6 +11,7 @@ provider:
 package:
   include:
     - serverless_functions/**
+    - common/**
   exclude:
     - hint/**
 
@@ -32,16 +33,3 @@ functions:
           path: wind
           method: get
 
-  temperature:
-    handler: serverless_functions/temperature.temperature
-    events:
-      - http:
-          path: temperature
-          method: get
-
-  stormwarning:
-    handler: serverless_functions/stormwarning.stormwarning
-    events:
-      - http:
-          path: stormwarning
-          method: get
