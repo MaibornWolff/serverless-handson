@@ -41,6 +41,7 @@ else
     assert xdg-open "/xdg-open" "which xdg-open"
     assert firefox "Mozilla Firefox" "firefox -v"
 fi
+assert GROUP_ID "\"UserName\": \"${GROUP_ID}\"" "aws iam list-users --output json "
 
 
 
