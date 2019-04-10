@@ -32,3 +32,10 @@ functions:
       - http:
           path: wind
           method: get
+
+  humidity:
+    handler: serverless_functions/humidity.humidity
+    events:
+      - http:
+          path: humidity
+          method: get

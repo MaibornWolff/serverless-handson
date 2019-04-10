@@ -1,29 +1,25 @@
 import json
 import boto3
-from botocore.exceptions import BotoCoreError, ClientError
-
-# defined data types for easier handling
-from config.general import Response, logger
+from common.general import Response
 
 
-polly = boto3.client('polly')
 
-
+"""
+    This serverless function returns available polly voices
+"""
 def voices(event: dict, context: dict) -> dict:
-    try:
-        voices = get_voices_from_polly_api(polly)
-    except NameError:
-        return Response(501, "Polly not found").as_dict()
 
-    except (BotoCoreError, ClientError) as err:
-        # The service returned an error
-        logger.error("error fetching polly response" + str(err))
-        return Response(500, str(err)).as_dict()
-
-    return Response(200, json.dumps(voices)).as_dict()
+    # calling AWS Polly API - get all voices as list
+    voices = get_voices_from_polly_api()
 
 
-def get_voices_from_polly_api(polly_client) -> list:
+    return Response(json.dumps(voices)).create()
+
+
+
+def get_voices_from_polly_api() -> list:
+    polly_client = boto3.client('polly')
+
     params = {}
     return_value = []
 
@@ -35,4 +31,5 @@ def get_voices_from_polly_api(polly_client) -> list:
             params = {"NextToken": response["NextToken"]}
         else:
             break
+
     return return_value

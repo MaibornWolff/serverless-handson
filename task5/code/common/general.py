@@ -13,7 +13,7 @@ fields = ("statusCode", "body", "headers", "isBase64Encoded")
 
 class Response:
 
-    def __init__(self, status_code, body: str, headers=None, is_base64encoded=False):
+    def __init__(self, body: str, status_code=None, headers=None, is_base64encoded=False):
         if headers is None:
             headers = DEFAULT_HEADER
 
@@ -25,7 +25,7 @@ class Response:
         self.headers = headers
         self.isBase64Encoded = is_base64encoded
 
-    def as_dict(self):
+    def create(self):
         return {
             "statusCode": self.status_code,
             "body": self.body,
