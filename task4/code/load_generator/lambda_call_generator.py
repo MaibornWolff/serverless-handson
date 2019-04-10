@@ -10,7 +10,10 @@ import json
 
 def call_serverless_function(function_id):
     response = call(functions[function_id], "GET")
-    print("API returned: " + str(json.loads(response)["value"]))
+    try:
+        print("API returned: " + str(json.loads(response.decode("utf8"))["value"]))
+    except:
+        print("API returned: " + str(response))
 
 def call(url, request_type):
     r = None
@@ -115,13 +118,13 @@ if __name__ == '__main__':
             exit(1)
 
         print("")
-        print("For leaving this program type: exit")
-        print("Hit enter as often as you like to get the newest value")
+        print("For leaving this program, enter 'exit'")
+        print("Hit <ENTER> as often as you like to invoke the function")
 
         print("")
 
         while True:
-            keypress = input("Hit <ENTER> to invoke the function or enter 'exit' to leave'")
+            keypress = input("Hit <ENTER> to invoke the function, or enter 'exit' to leave")
 
             if keypress == "exit":
                 exit(0)
