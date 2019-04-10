@@ -1,31 +1,21 @@
-import json
-import logging
 import random
-from common.generate_log import debug
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+from common import monitor
+from common import logger
+from common import response
 
 
 """
     This serverless function returns the current humidity
 """
 def humidity(event, context):
-    humidity = random.randint(0,120)
-
-    debug("There is will be rain - Take an umbrella with you", humidity)
-
-    body = {
-        "message": "Humidity retrieved successfully",
-        "input": event,
-        "value": humidity
-    }
+    humidity = random.randint(0, 120)
 
     logger.info("Hello from somewhere in the cloud! This is the API /humidity")
 
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(body)
-    }
+    monitor.send_to_dashboard("There is will be rain - Take an umbrella with you", humidity)
 
-    return response
+    return response.create(
+        message="humidity retrieved successfully",
+        value=humidity
+    )
 

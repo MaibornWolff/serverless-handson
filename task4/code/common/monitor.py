@@ -9,14 +9,14 @@ import os
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-def generate_payload(message, value, function_id, group_id):
+def generate_payload(message, function_id, group_id, value):
     timestamp = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + "Z"
     payload = {
         '@timestamp': timestamp,  # 2019-01-14T10:15:43.000Z -> UTC timestamp
         'log': message ,
         'function_id': function_id,
         'group_id': group_id,
-        'temperature': value,
+        'value': value,
         'serverless_request_id': random.randint(0,65535),
         'success': True
     }
@@ -24,8 +24,8 @@ def generate_payload(message, value, function_id, group_id):
     return payload
 
 
-def debug(message, value):
-    logger.info("log message in Elastic - "+message)
+def send_to_dashboard(message, value):
+    logger.info("Log message in Elastic - "+message)
 
     try:
         function_id = os.environ['FUNCTION_ID']
@@ -49,7 +49,7 @@ def debug(message, value):
 
     elastic_headers = {'Content-type': 'application/json'}
     http = urllib3.PoolManager()
-    r = http.request("POST", elastic_url, body=json.dumps(generate_payload(message, value, function_id, group_id)), headers=elastic_headers)
+    r = http.request("POST", elastic_url, body=json.dumps(generate_payload(message, function_id, group_id, value)), headers=elastic_headers)
     http.clear()
 
     if(r.status == 201 and r.reason == "Created"):

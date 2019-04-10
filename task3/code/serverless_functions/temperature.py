@@ -1,8 +1,6 @@
-import json
-import logging
-from common.generate_log import send_to_monitor
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+from common import monitor
+from common import logger
+from common import response
 
 
 """
@@ -21,21 +19,12 @@ def temperature(event, context):
 
 
 
-    send_to_monitor("Sent temperature to monitoring", temperature_in_celcius)
+    monitor.send_to_dashboard("Sent temperature to monitoring", temperature_in_celcius)
 
-    #TODO: MIAB - response one line
-    response_body = {
-        "message": "Temperature retrieved successfully",
-        "input": event,
-        "output": temperature_in_celcius
-    }
-
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(response_body)
-    }
-
-    return response
+    return response.create(
+        message="Temperature retrieved successfully",
+        value=temperature_in_celcius
+    )
 
 
 def convert_kelvin_to_fahrenheit(kelvin):

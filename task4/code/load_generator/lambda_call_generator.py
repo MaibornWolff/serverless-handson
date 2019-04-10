@@ -8,6 +8,10 @@ import sys
 import json
 
 
+def call_serverless_function(function_id):
+    response = call(functions[function_id], "GET")
+    print("API returned: " + str(json.loads(response)["value"]))
+
 def call(url, request_type):
     r = None
     try:
@@ -88,36 +92,47 @@ class CallInfo():
 
 
 if __name__ == '__main__':
-    functions = sys.argv[1:]
+    prompt_mode = sys.argv[1] # for testing put this to false
+    functions = sys.argv[2:]
 
-    print("Which function would you choose if there are dark clouds coming up?")
-    print("[1] brightness")
-    print("[2] wind")
-    print("[3] temperature")
-    print("[4] stormwarning")
-    print("[5] humidity")
+    if prompt_mode == "true":
+        print("Which function would you choose if there are dark clouds coming up?")
+        print("[1] brightness")
+        print("[2] wind")
+        print("[3] temperature")
+        print("[4] stormwarning")
+        print("[5] humidity")
 
-    input_function_id = input("Choose number: ")
-    try:
-        function_id = int(input_function_id)
-    except ValueError:
-        print("Input was was not an number: " + input_function_id)
-        exit(1)
+        input_function_id = input("Choose number: ")
+        try:
+            function_id = int(input_function_id)
+        except ValueError:
+            print("Input was was not an number: " + input_function_id)
+            exit(1)
 
-    if function_id not in range(1, 6):
-        print("Value was not between 1 and 5")
-        exit(1)
+        if function_id not in range(1, 6):
+            print("Value was not between 1 and 5")
+            exit(1)
 
-    print("For leaving this program type: exit")
-    print("Hit enter as often as you like to get the newest value")
+        print("")
+        print("For leaving this program type: exit")
+        print("Hit enter as often as you like to get the newest value")
 
-    print("")
+        print("")
 
-    while True:
-        keypress = input("HIT <enter> to retrive the newest value!")
+        while True:
+            keypress = input("Hit <ENTER> to invoke the function or enter 'exit' to leave'")
 
-        if keypress == "exit":
-            exit(0)
-        else:
-            response = call(functions[function_id - 1], "GET")
-            print("API returned: " + str(json.loads(response)["value"]))
+            if keypress == "exit":
+                exit(0)
+            else:
+                call_serverless_function(function_id-1)
+    else:
+        call_serverless_function(0)
+        call_serverless_function(1)
+        call_serverless_function(2)
+        call_serverless_function(3)
+        call_serverless_function(4)
+
+        print ("Test was successfully")
+        exit(0)
