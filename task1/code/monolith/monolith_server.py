@@ -20,9 +20,7 @@ class Server(BaseHTTPRequestHandler):
 
         paths = {
             '/brightness':   {'func': MyApp.brightness, 'data': {}},
-            '/wind':         {'func': MyApp.wind, 'data': {}},
-            '/temperature':  {'func': MyApp.temperature, 'data': {}},
-            '/stormwarning': {'func': MyApp.stormwarning, 'data': {}}
+            '/wind':         {'func': MyApp.wind, 'data': {}}
         }
 
         if self.get_path_only() in paths:
@@ -89,7 +87,10 @@ if __name__ == '__main__':
 
     server_class = HTTPServer
     httpd = server_class((HOST_NAME, PORT_NUMBER), Server)
-    print(time.asctime(), 'Server Starts - %s:%s' % (HOST_NAME, PORT_NUMBER))
+    print('Server Started - %s:%s' % (HOST_NAME, PORT_NUMBER))
+    print('APIs available:')
+    print('http://%s:%s/brightness' % (HOST_NAME, PORT_NUMBER))
+    print('http://%s:%s/wind' % (HOST_NAME, PORT_NUMBER))
 
     action_process = Process(target=httpd.serve_forever)
 
@@ -104,5 +105,5 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         pass
     httpd.server_close()
-    print(time.asctime(), 'Server Stops - %s:%s' % (HOST_NAME, PORT_NUMBER))
+    print('Server Stoped - %s:%s' % (HOST_NAME, PORT_NUMBER))
     action_process.terminate()

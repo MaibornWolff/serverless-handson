@@ -1,57 +1,24 @@
-import json
 from typing import Dict
+from common import logger
+from common import response
 
 
 class MyApp:
 
     def brightness(self, event) -> Dict[str, str]:
-        body = {
-            "message": "Monoliths are so solid!",
-            "input": event
-        }
+        #TODO: migrate all logic below to serverless_functions
+        logger.info("Hello I am a monolith! This is my API /brightness")
 
-        response = {
-            "statusCode": 200,
-            "body": json.dumps(body)
-        }
-
-        return response
+        return response.create(
+            message="Monoliths are so solid! Sunshine every day",
+            value=60
+        )
 
     def wind(self, event) -> Dict[str, str]:
-        body = {
-            "message": "Monoliths are so super solid!",
-            "input": event
-        }
+        #TODO: migrate all logic below to serverless_functions
+        logger.info("Hello I am a monolith! This is my API /wind")
 
-        response = {
-            "statusCode": 200,
-            "body": json.dumps(body)
-        }
-
-        return response
-
-    def temperature(self, event) -> Dict[str, str]:
-        body = {
-            "message": "Monoliths never break",
-            "input": event
-        }
-
-        response = {
-            "statusCode": 200,
-            "body": json.dumps(body)
-        }
-
-        return response
-
-    def stormwarning(self, event) -> Dict[str, str]:
-        body = {
-            "message": "Monoliths can scale like nothing else",
-            "input": event
-        }
-
-        response = {
-            "statusCode": 200,
-            "body": json.dumps(body)
-        }
-
-        return response
+        return response.create(
+            message="Monoliths never break! Not even in a storm",
+            value=3
+        )

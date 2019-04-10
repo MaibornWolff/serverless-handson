@@ -1,24 +1,13 @@
-import json
-import logging
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-
+from common import logger
+from common import response
 
 """
     This serverless function returns the current humidity
 """
 def humidity(event, context):
-    body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
-    }
-
     logger.info("Hello from somewhere in the cloud! This is the API /humidity")
 
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(body)
-    }
-
-    return response
-
+    return response.create(
+        message="Your serverless function executed successfully!",
+        value=120
+    )

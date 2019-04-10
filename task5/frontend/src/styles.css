@@ -9,9 +9,9 @@ html,body,app-root{
 
 body {
   background-size: cover;
-  background-image: url("/assets/animal-avian-beak-1618424.jpg");
+  background-image: url("/assets/background.png");
   margin: 0;
-  background-position: right bottom;
+  background-position: top;
   padding: 0;
 }
 

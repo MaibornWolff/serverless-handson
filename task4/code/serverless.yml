@@ -14,6 +14,7 @@ provider:
 package:
   include:
     - serverless_functions/**
+    - common/**
   exclude:
     - load_generator/**
     - hint/**

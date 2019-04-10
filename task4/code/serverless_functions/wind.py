@@ -1,30 +1,20 @@
-import json
-import logging
 import random
-from common.generate_log import debug
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+from common import monitor
+from common import logger
+from common import response
+
 
 """
     This serverless function returns the current wind
 """
 def wind(event, context):
-    wind = random.randint(0,100)
-
-    debug("There is maybe a little bit wind - Be cautious with your hat", wind)
-
-    body = {
-        "message": "Wind retrieved successfully",
-        "input": event,
-        "value": wind
-    }
+    wind = random.randint(0, 100)
 
     logger.info("Hello from somewhere in the cloud! This is the API /wind")
 
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(body)
-    }
+    monitor.send_to_dashboard("There is maybe a little bit wind - Be cautious with your hat", wind)
 
-    return response
-
+    return response.create(
+        message="Wind retrieved successfully",
+        value=wind
+    )

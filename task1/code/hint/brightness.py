@@ -1,24 +1,15 @@
-import json
-import logging
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-
+from common import logger
+from common import response
 
 """
     This serverless function returns the current brightness
 """
 def brightness(event, context):
-    body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
-    }
 
-    logger.info("Hello from somewhere in the cloud! This is the API /brightness")
+    logger.info("Hello I am a monolith! This is my API /brightness")
 
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(body)
-    }
-
-    return response
+    return response.create(
+        message="Monoliths are so solid! Sunshine every day",
+        value=60
+    )
 
