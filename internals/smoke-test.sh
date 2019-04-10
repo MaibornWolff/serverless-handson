@@ -124,12 +124,17 @@ assert kibana-exists "Kibana" "curl -X GET http://3.120.207.235:5601/app/kibana"
                 URL=`sls info | grep production/temperature | xargs |cut -d " " -f3`
                 assert sls-url-given "http" "$URL"
                 assert sls-curl-call  "Temperature retrieved successfully" "curl -X GET $URL"
-                assert sls-destroy "Stack removal finished..." "sls remove"
+                cd - > /dev/null
 
+                cd ../task4/
                 assert sls-kibana-call "Test was successfully" "./dark-clouds.sh false"
                 cd - > /dev/null
 
-                assert cleanup "cleaned" "./destroy-task.sh 3"
+                cd ../task4/code/
+                assert sls-destroy "Stack removal finished..." "sls remove"
+                cd - > /dev/null
+
+                assert cleanup "cleaned" "./destroy-task.sh 4"
             ;;
             5)
                 --- Task5 "serverless (~3min)"
