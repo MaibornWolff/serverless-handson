@@ -17,6 +17,7 @@ def generate_payload(message, function_id, group_id, value):
         'function_id': function_id,
         'group_id': group_id,
         'value': value,
+        'temperature': value,
         'serverless_request_id': random.randint(0,65535),
         'success': True
     }
@@ -25,8 +26,6 @@ def generate_payload(message, function_id, group_id, value):
 
 
 def send_to_dashboard(message, value):
-    logger.info("Log message in Elastic - "+message)
-
     try:
         function_id = os.environ['FUNCTION_ID']
         function_id = int(function_id)
@@ -47,6 +46,12 @@ def send_to_dashboard(message, value):
     except ValueError:
         raise ValueError("Environment variable ELASTIC_URL cant be retrieved")
 
+    send_to_dashboard_direct(message, value, group_id, function_id, elastic_url)
+
+
+def send_to_dashboard_direct(message, value, group_id, function_id, elastic_url):
+    logger.info("Log message in Elastic - "+message)
+
     elastic_headers = {'Content-type': 'application/json'}
     http = urllib3.PoolManager()
     r = http.request("POST", elastic_url, body=json.dumps(generate_payload(message, function_id, group_id, value)), headers=elastic_headers)
@@ -56,3 +61,10 @@ def send_to_dashboard(message, value):
         return True
     else:
         raise Exception('Elastic API didnt response as expected', {'statusCode': r.status_code, 'reason': r.reason, 'content': r.content})
+
+
+"""
+    with this method you can manually send logs to kibana
+"""
+if __name__ == '__main__':
+    send_to_dashboard_direct(message="Test", value=89.6, group_id= 12, function_id=3, elastic_url="http://3.120.207.235:9200/myindex/mydoc")
