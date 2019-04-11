@@ -52,7 +52,7 @@ class Server(BaseHTTPRequestHandler):
         self.send_response(content['statusCode'])
         self.send_header('Content-Type', 'application/json')
         self.end_headers()
-        return bytes(json.dumps(content), 'UTF-8')
+        return bytes(content['body'], 'UTF-8')
 
     def handle_error(self):
         self.send_response(500)
