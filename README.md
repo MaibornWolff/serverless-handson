@@ -1,11 +1,6 @@
-# WIP - structure is not final yet
+# NSE Tag 2019 - CloudNative
 
+Bitte folgen sie den Hinweisen in den Aufgaben in den Ordnern:
+/task1 .. N
 
-TODO: what is this project about, what does it include, how to starts
-
-
-# structure
-- every task is independend (no tasks build on the other)
-- all tasks have the same strcuture and follow a namingconvention
-- task only have code inside which is needed for the task itself, every boilderplate code will be externalized to folder /internals
-
+Sie finden dort alle benötigten Informationen

@@ -1,7 +1,10 @@
-# Task 2
+# Aufgabe 2
 
-Erstellen Sie nun eine neue Funktion. 
-1. Dazu Erstellen Sie eine neue Datei in Verzeichnis `code/serverless_functions/`.
-1. Anschließend modizieren Sie die Datei `code/serverless.yml` um eine neue Funktion der Konfiguration hinzuzufügen. Suchen Sie den Eintrag 'functions' und kopieren sie eine beliebige Funktions-Konfiguration
-1. Um die Funktion zu deployen führen Sie `deploy.sh` aus
-
+1) Kopieren Sie die existierende Funktion & geben ihr einen neuen Dateinamen: humidity.py
+2) Funktionsnamen ändern
+3) Passen Sie auch die Konfiguration an:serverless.yml
+4) Konsole:
+   cd ..
+   cd task2
+   ./deploy.sh 
+5) Prüfen Sie ob die Funktion da ist & rufen diese auf 
