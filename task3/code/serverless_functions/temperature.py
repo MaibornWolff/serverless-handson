@@ -13,17 +13,17 @@ def temperature(event, context):
     logger.info("This is the current temperature from a sensor: "+str(sensor_value_in_kelvin)+" in kelvin")
 
 
-    temperature_in_celcius = convert_kelvin_to_fahrenheit(sensor_value_in_kelvin)
-    logger.info("This is the converted temperature: "+str(temperature_in_celcius))
+    temperature_in_celsius = convert_kelvin_to_fahrenheit(sensor_value_in_kelvin)
+    logger.info("This is the converted temperature: "+str(temperature_in_celsius))
     #  ^ There is a bug above this line ^
 
 
 
-    monitor.send_to_dashboard("Sent temperature to monitoring", temperature_in_celcius)
+    monitor.send_to_dashboard("Sent temperature to monitoring", temperature_in_celsius)
 
     return response.create(
         message="Temperature retrieved successfully",
-        value=temperature_in_celcius
+        value=temperature_in_celsius
     )
 
 
