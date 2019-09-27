@@ -8,7 +8,7 @@ fi
 cd code
 serverless deploy -v
 
-clear
+
 echo -e "\n_________________________________\n"
 echo -e "\e[33m\e[4mEndpoints:\e[0m"
 sls info| grep  GET

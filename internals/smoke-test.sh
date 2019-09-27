@@ -34,13 +34,6 @@ assert node-npm "/npm" "which npm"
 assert sls "/sls" "which sls"
 assert serverless "/serverless" "which serverless"
 assert jq "/jq" "which jq"
-assert aws-account "AWS_PROFILE" "printenv"
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    assert open "/open" "which open"
-else
-    assert xdg-open "/xdg-open" "which xdg-open"
-    assert firefox "Mozilla Firefox" "firefox -v"
-fi
 assert GROUP_ID "\"UserName\": \"${GROUP_ID}\"" "aws iam list-users --output json"
 assert kibana-exists "Kibana" "curl -X GET http://3.120.207.235:5601/app/kibana"
 
