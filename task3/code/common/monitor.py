@@ -67,4 +67,4 @@ def send_to_dashboard_direct(message, value, group_id, function_id, elastic_url)
     with this method you can manually send logs to kibana
 """
 if __name__ == '__main__':
-    send_to_dashboard_direct(message="Test", value=89.6, group_id= 12, function_id=3, elastic_url="http://3.120.207.235:9200/myindex/mydoc")
+    send_to_dashboard_direct(message="Test", value=89.6, group_id= 12, function_id=3, elastic_url="http://18.184.206.122:9200/myindex/mydoc")
