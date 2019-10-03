@@ -35,7 +35,7 @@ assert sls "/sls" "which sls"
 assert serverless "/serverless" "which serverless"
 assert jq "/jq" "which jq"
 assert GROUP_ID "\"UserName\": \"${GROUP_ID}\"" "aws iam list-users --output json"
-assert kibana-exists "Kibana" "curl -X GET http://3.120.207.235:5601/app/kibana"
+assert kibana-exists "Kibana" "curl -X GET http://18.184.206.122:5601/app/kibana"
 
 
 
