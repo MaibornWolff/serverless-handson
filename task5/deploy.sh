@@ -35,7 +35,7 @@ cd - > /dev/null
 if [[ $1 != "--no-browser" ]]; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         open "http://${CLIENT_BUCKET}.s3-website.eu-central-1.amazonaws.com/" 2>/dev/null > /dev/null
-    elif [[ "$OSTYPE" == "linux"* ]]
+    elif [[ "$OSTYPE" == "linux"* ]]; then
         xdg-open "http://${CLIENT_BUCKET}.s3-website.eu-central-1.amazonaws.com/" 2>/dev/null > /dev/null
     else
         echo "Please enter the UI here: http://${CLIENT_BUCKET}.s3-website.eu-central-1.amazonaws.com/"
