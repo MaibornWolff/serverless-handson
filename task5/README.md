@@ -1,7 +1,12 @@
-# Aufgabe 5
+# Task 5
 
-1)  cd ..  
-    cd task5  
+1 ) 
+
+
+    cd ...  
+    cd task5  
     ./deploy.sh
-2)  Browser öffnet sich automatisch
-3)  Probieren Sie es mal aus
+    
+2 ) Browser opens automatically
+
+3 ) Give it a try

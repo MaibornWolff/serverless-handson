@@ -1,79 +1,79 @@
-# NSE Tag 2019 - CloudNative
+# Serverless - Hands On
 
-Anbei finden sie den Code für die Beispiele die während des NSE-Tag 2019 durchgeführt wurden.
+Enclosed you will find the code for the examples of a guided Serverless Hands On.
 
-#### Hinweise
-- Die Sourcen wurden speziell für dieses Ereignis erstellt und sind nur den Teilnehmer des NSE Tag 2019 zur Verfügung gestellt worden
-- Die Beispiele wurden zielgruppenspezifisch zugeschnitten - d.h. sie wurde didaktisch angepasst um die Konzepte bestmöglich zu vermitteln
-- Der Code und die Dokumentation spiegeln nicht die qualitativen Ansprüche von MaibornWolff an ein produktiven Einsatz wieder
-- Bitte wenden sie sich bei Fragen gerne an MaibornWolff direkt z.B. michael.abey@maibornwolff.de
+#### Notes
+- The sources were created especially for this event and are only available to the participants.
+- The examples were tailored to specific target groups - i.e. they were didactically adapted to convey the concepts in the best possible way.
+- The code and documentation do not reflect MaibornWolff's qualitative requirements for productive use.
+- If you have any questions, please contact MaibornWolff directly e.g. michael.abey@maibornwolff.de
 
 
-### Voraussetzung
+### Prerequisite
 
-#### Betriebssystem
-Es wurde für folgende Betriebssysteme getestet:
+#### Operating system
+It has been tested for the following operating systems:
 - Linux
 - OSX
 
 #### Cloud Account
-- AWS Account erstellen + credentials im Betriebssystem hinterlegen 
+- Create AWS account + store credentials in operating system (currently only as default)
  
  
     vi ~/.aws/credentials
-    [1]
+    [default]
     aws_access_key_id = AKIA...
     aws_secret_access_key = r4VAd....
 
 
-#### Umgebungsvariablen setzen
+#### Set environment variables
 
-    export AWS_PROFILE=<aws profile name in ~/.aws/credentials e.g. 1>
     export GROUP_ID=1
+    export ELASTIC_IP=<ip_to_running_elastic>
     
-#### Zentrales Monitoring
-Wir haben für den NSE Tag einen zentralen Elasticstack aufgesetzt. Diesen können wir den Sourcen nicht hinzufügen.
-Beispiele die darauf angewiesen sind müssten übersprungen oder ein Elasticsearch und Kibana müssten zur Verfügung gestellt werden.
-Dies Betriff Aufgabe 3+4 
+#### Central monitoring
+We've set up a central elastic stack for this Hands On. We cannot add this to the sources.
+Examples that depend on it would have to be skipped or an Elasticsearch and Kibana would have to be provided.
+This concerns task 3+4 
 
 
-#### Testen
-Für ein vollständiges automatisiertes testen aller Beispiele wurde ein Smoketest geschrieben der die groben Funktionalitäten einmal durchläuft.
-Er frägt zuvor auch alle technisch installierten Vorraussetzungen ab, die dann gegebenfalls manuell installiert werden müssen.
+#### Testing
+For a complete automated testing of all examples, a smoketest was written that goes through the rough functionalities once.
+It also queries all technically installed prerequisites, which may have to be installed manually.
 
 
     cd internals
     ./smoke-test.sh
     
-Einzelne Aufgaben testen anhand der Nummer z.B.
+Test individual tasks by number e.g.
 
     ./smoke-test.sh 1
     
     
-#### Löschen
-Sollte ein Test schiefgehen oder eine Aufgabe wieder aufgeräumt werden müssen
+#### Delete
+If a test goes wrong or a task has to be cleaned up again
 
     cd internals
     ./destroy-task.sh
     
     
-## Beispiele - Aufgabenstellung
-Finden sie in der beigelegten Präsentation und in den taskN/README.md
+## examples - task
+Please find in the enclosed presentation and in the taskN/README.md
 
 
-## Beispiel - ausführen
-Die Beispiele sind alle gleich aufgebaut:
+## Example - Execute
+The examples are all structured in the same way:
 
     
     /taskN
     	/code
-    		/serverless_functions      - Serverless Funktionen
-    		/hint                      - Hinweise die Aufgabe zu lösen
-    	serverless.yml                 - Serverless Framework Konfiguration
-    	./deploy.sh                    - Skript zum deployen
-    	README.md                      - Dokumentation
+    		/serverless_functions  - Serverless Functions
+    		/hint                  - hints to solve the task
+    	serverless.yml                 - Serverless Framework Configuration
+    	./deploy.sh                    - deploy script
+    	README.md                      - Documentation
 
-Bitte folgen sie den Hinweisen in den Aufgaben in den Ordnern:
-/task1 .. N
+Please follow the instructions in the tasks in the folders:
+/task1 ... N
 
-Sie finden dort alle benötigten Informationen um die Beispiele auszuführen.
+There you will find all the information you need to execute the examples.

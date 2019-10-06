@@ -8,7 +8,7 @@ provider:
   stage: production
   region: eu-central-1
   environment:
-    ELASTIC_URL: http://18.184.206.122:9200/myindex/mydoc
+    ELASTIC_URL: http://${env:ELASTIC_IP}:9200/myindex/mydoc
     GROUP_ID: ${env:GROUP_ID}
 
 package:

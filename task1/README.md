@@ -1,8 +1,14 @@
-# Aufgabe1
+# Task1
 
-1) Kopieren Sie die Funktionsinhalt von 
-   /monolith nach /serverless_functions
-2) Im Terminalfenster eingeben:
-   cd task1
-   ./deploy.sh 
-3) Zusammen prüfen wir ob die Funktionen da sind & lassen sie laufen
+1 ) Copy the function content from 
+
+
+    /monolith to /serverless_functions
+
+2 ) Enter in the terminal window:
+
+
+    cd task1
+    ./deploy.sh 
+
+3 ) Together we check if the functions are there & run them
