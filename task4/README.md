@@ -1,9 +1,21 @@
-# Aufgabe 4
+# Task 4
 
-1)  cd ..  
+1 ) 
+
+
+    cd ...  
     cd task4
-2)  ./deploy.sh
-3)  ./dark-clouds.sh
-4) Wählen Sie eine Funktion aus & legen Sie mal ordentlich Last an!
+    
+2 ) 
+
+
+    ./deploy.sh
+    
+3 ) 
+
+
+    ./dark-clouds.sh
+    
+4 ) Select a function & put some load on it!
 
 
