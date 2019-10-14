@@ -11,6 +11,12 @@ Enclosed you will find the code for the examples of a guided Serverless Hands On
 
 ### Prerequisite
 
+Please start the provisioning script by open a Terminal in your Cloud9 Web IDE and enter:
+```
+cd nse-handson-examples
+./provision.sh
+```
+
 #### Operating system
 It has been tested for the following operating systems:
 - Linux
