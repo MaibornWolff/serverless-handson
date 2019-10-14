@@ -13,7 +13,7 @@ Enclosed you will find the code for the examples of a guided Serverless Hands On
 
 Please start the provisioning script by open a Terminal in your Cloud9 Web IDE and enter:
 ```
-cd nse-handson-examples
+cd serverless-handson
 ./provision.sh
 ```
 

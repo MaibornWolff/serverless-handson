@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo npm install -g yarn serverless
+npm install -g yarn serverless
 sudo yum -y install jq
 # extracts the group ID from the AWS user name, e.g. cs12 would result in 12
 echo -e "\n\nexport GROUP_ID=${C9_USER#'cs'}" >> ~/.bashrc
