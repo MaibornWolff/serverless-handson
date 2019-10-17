@@ -9,9 +9,9 @@ Enclosed you will find the code for the examples of a guided Serverless Hands On
 - If you have any questions, please contact MaibornWolff directly e.g. michael.abey@maibornwolff.de
 
 
-### Prerequisite
+### Prerequisite for Cloud9 Web IDE
 
-Please start the provisioning script by open a Terminal in your Cloud9 Web IDE and enter:
+If you use Cloud9, please start the provisioning script by open a Terminal in your Cloud9 Web IDE and enter:
 ```
 cd serverless-handson
 ./provision.sh
