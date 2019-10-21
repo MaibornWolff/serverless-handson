@@ -1,3 +1,3 @@
-# Hinweis
+# Note
 
-Schauen sie doch mal ob die richtige funktion zur Konvertierung aufgerufen wird.
+Check if the correct function is called for the conversion. The result should be celcius.

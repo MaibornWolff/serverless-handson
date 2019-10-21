@@ -1,21 +1,12 @@
 # Task 2
 
-1 ) Copy the existing function & give it a new filename: 
+1 ) Implement and configure an API called /humidity
 
-
-    humidity.py
-
-2 ) Change function name
-
-3 ) Also customize the configuration: 
-        
-    serverless.yml
-
-4 ) Console:
+2 ) Deploy it:
 
 
     cd ..
     cd task2
     ./deploy.sh 
 
-5 ) Check if the function is there & call it 
+3 ) Check if the function is there & call it 

@@ -13,6 +13,7 @@ provider:
       Action:
         - "polly:SynthesizeSpeech"
         - "polly:DescribeVoices"
+        - "translate:TranslateText"
       Resource: "*"
 
 package:

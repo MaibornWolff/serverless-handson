@@ -1,3 +1,3 @@
-# Hinweis
+# Note
 
-Hier brauchen sie keine Hilfestellung der Code ist schon lauffähig.
+Here you do not need help the code is already executable.

@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
 
   voices: Voice[];
   selectedVoice: string;
-  text = 'Die aktuelle Temperatur beträgt 32° Celsius';
+  text = 'The current temperature is 32° Celsius';
 
   @ViewChild('noiseplayer') noisePlayer;
 
