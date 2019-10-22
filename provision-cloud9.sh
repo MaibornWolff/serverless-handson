@@ -11,7 +11,8 @@ while true; do
   echo -n "Enter the IP of the Elasticsearch instance [ENTER]: "
   read -r ELASTIC_IP
 
-  ELASTIC_URL="http://$ELASTIC_IP:9200"
+  export ELASTIC_IP=$ELASTIC_IP
+  export ELASTIC_URL="http://$ELASTIC_IP:9200"
 
   if curl --output /dev/null --connect-timeout 3 --max-time 6 --silent --head --fail "$ELASTIC_URL"; then
     echo -e "\n\nexport ELASTIC_IP=\"${ELASTIC_IP}\"" >> ~/.bashrc
