@@ -11,7 +11,7 @@ sys.path.insert(0, ".")
 from monolith_app import MyApp
 
 HOST_NAME = 'localhost'
-PORT_NUMBER = 9000
+PORT_NUMBER = 8080
 
 
 class Server(BaseHTTPRequestHandler):

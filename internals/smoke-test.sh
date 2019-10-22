@@ -46,7 +46,7 @@ assert kibana-exists "Kibana" "curl -X GET http://"${ELASTIC_IP}":5601/app/kiban
         case "${i}" in
             1)
                 --- Task1 "monolith"
-                assert monolith "localhost:9000" "../task1/code/monolith/monolith_server.py --test-mode"
+                assert monolith "localhost:8080" "../task1/code/monolith/monolith_server.py --test-mode"
 
                 --- Task1 "serverless (~2min)"
                 cd ../task1/

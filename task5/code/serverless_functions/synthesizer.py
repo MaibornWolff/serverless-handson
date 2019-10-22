@@ -4,6 +4,7 @@ import boto3
 import sys
 from botocore.exceptions import BotoCoreError, ClientError
 from common.general import AUDIO_FORMATS, logger, Response
+from common import logger
 
 
 """
@@ -11,11 +12,12 @@ from common.general import AUDIO_FORMATS, logger, Response
 """
 def synthesizer(event: dict, context: dict) -> dict:
 
-    # extracting parameters
+
     text, voice_id, output_format = extract_parameters_from_request(event)
+    logger.info("Extracted parameters: "+text+", "+voice_id+", "+output_format)
 
 
-    # calling AWS Polly API - synthezise text to speech
+    logger.info("Calling AWS Polly API - synthezise text to speech")
     speech = synthesize_speech(text, voice_id, output_format)
 
 
