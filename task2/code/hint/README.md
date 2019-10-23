@@ -1,5 +1,5 @@
 # Note
 
-Look at these files:
-- wind.py (copy and rename it)
-- serverless.yml (missing something?!)
+create these these files:
+- humidity.py e.g. copy wind.py and rename it
+- extend serverless.yml
