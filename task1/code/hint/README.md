@@ -1,3 +1,8 @@
 # Note
 
-Copy these 2 functions to /serverless_functions
+Copy the content of 
+monolith/monolith_app.py 
+into 
+serverless_functions/
+    brightness.py
+    wind.py
