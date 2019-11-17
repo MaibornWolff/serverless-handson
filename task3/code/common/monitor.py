@@ -67,4 +67,10 @@ def send_to_dashboard_direct(message, value, group_id, function_id, elastic_url)
     with this method you can manually send logs to kibana
 """
 if __name__ == '__main__':
-    send_to_dashboard_direct(message="Test", value=89.6, group_id= 12, function_id=3, elastic_url="http://"+os.environ['ELASTIC_IP']+":9200/myindex/mydoc")
+    send_to_dashboard_direct(message="Test", value=89.6, group_id=1, function_id=3, elastic_url="http://"+os.environ['ELASTIC_IP']+":9200/myindex/mydoc")
+    send_to_dashboard_direct(message="Test", value=89.6, group_id=2, function_id=3, elastic_url="http://"+os.environ['ELASTIC_IP']+":9200/myindex/mydoc")
+    send_to_dashboard_direct(message="Test", value=89.6, group_id=3, function_id=3, elastic_url="http://"+os.environ['ELASTIC_IP']+":9200/myindex/mydoc")
+    send_to_dashboard_direct(message="Test", value=89.6, group_id=4, function_id=3, elastic_url="http://"+os.environ['ELASTIC_IP']+":9200/myindex/mydoc")
+    send_to_dashboard_direct(message="Test", value=89.6, group_id=5, function_id=3, elastic_url="http://"+os.environ['ELASTIC_IP']+":9200/myindex/mydoc")
+    send_to_dashboard_direct(message="Test", value=89.6, group_id=6, function_id=3, elastic_url="http://"+os.environ['ELASTIC_IP']+":9200/myindex/mydoc")
+    send_to_dashboard_direct(message="Test", value=89.6, group_id=7, function_id=3, elastic_url="http://"+os.environ['ELASTIC_IP']+":9200/myindex/mydoc")
