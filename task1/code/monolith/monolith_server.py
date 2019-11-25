@@ -19,8 +19,9 @@ class Server(BaseHTTPRequestHandler):
     def do_GET(self):
 
         paths = {
-            '/brightness':   {'func': MyApp.brightness, 'data': {}},
-            '/wind':         {'func': MyApp.wind, 'data': {}}
+            '/':   {'func': MyApp.get, 'data': {'context':''}},
+            '/brightness':   {'func': MyApp.get, 'data': {'context':'brightness'}},
+            '/wind':         {'func': MyApp.get, 'data': {'context':'wind'}}
         }
 
         if self.get_path_only() in paths:
