@@ -1,0 +1,24 @@
+# Common configuration
+service: task1
+
+provider:
+  name: aws
+  runtime: python3.7
+  stage: production
+  region: eu-central-1
+
+package:
+  include:
+    - serverless_functions/**
+    - common/**
+  exclude:
+    - monolith/**
+
+# Serverless functions configuration
+functions:
+  image:
+    handler: serverless_functions/image.upload
+    events:
+      - http:
+          path: image
+          method: get

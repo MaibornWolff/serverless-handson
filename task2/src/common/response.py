@@ -1,13 +1,12 @@
 import json
 
-def create(message, value):
+def create(message, statusCode):
     body = {
-        "message": message,
-        "value": value
+        "message": message
     }
 
     response = {
-        "statusCode": 200,
+        "statusCode": statusCode,
         "body": json.dumps(body)
     }
 
