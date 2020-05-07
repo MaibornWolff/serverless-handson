@@ -1,6 +1,5 @@
 # Common configuration
 service: task1
-frameworkVersion: ">=1.36.3 <2.0.0"
 
 provider:
   name: aws
@@ -14,23 +13,6 @@ package:
     - common/**
   exclude:
     - monolith/**
-    - hint/**
-
 
 # Serverless functions configuration
 functions:
-
-  brightness:
-    handler: serverless_functions/brightness.brightness
-    events:
-      - http:
-          path: brightness
-          method: get
-
-  wind:
-    handler: serverless_functions/wind.wind
-    events:
-      - http:
-          path: wind
-          method: get
-

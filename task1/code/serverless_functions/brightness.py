@@ -6,6 +6,3 @@ from common import response
 """
 def brightness(event, context):
 
-    #TODO: Override this method body with the one from the monolith_app.py
-    #      Copy only the content under: def method()
-

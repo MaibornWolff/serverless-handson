@@ -6,7 +6,6 @@ from common import response
 class MyApp:
 
     def brightness(self, event) -> Dict[str, str]:
-        #TODO: migrate all logic below to serverless_functions
         logger.info("Hello I am a monolith! This is my API /brightness")
 
         return response.create(
@@ -15,7 +14,6 @@ class MyApp:
         )
 
     def wind(self, event) -> Dict[str, str]:
-        #TODO: migrate all logic below to serverless_functions
         logger.info("Hello I am a monolith! This is my API /wind")
 
         return response.create(
