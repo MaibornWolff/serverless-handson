@@ -1,6 +1,5 @@
 # Common configuration
 service: task0
-frameworkVersion: ">=1.36.3 <2.0.0"
 
 provider:
   name: aws
@@ -10,7 +9,6 @@ provider:
 
 package:
   include:
-    - serverless_functions/**
     - common/**
 
 # Serverless functions configuration

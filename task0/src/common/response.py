@@ -1,9 +1,8 @@
 import json
 
-def create(message, value):
+def create(message):
     body = {
-        "message": message,
-        "value": value
+        "message": message
     }
 
     response = {
