@@ -11,3 +11,14 @@ def create(message, statusCode):
     }
 
     return response
+    
+    
+def html(html_content):
+    body = f"<html><head><title>HTML from API Gateway/Lambda</title></head><body>{html_content}</body></html>"
+    return {
+        "statusCode": 200,
+        "body": body,
+        "headers": {
+            'Content-Type': 'text/html',
+        }
+    }

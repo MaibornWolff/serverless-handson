@@ -1,9 +1,23 @@
 # Common configuration
-service: task1
+service: task2
 
 provider:
   name: aws
-  runtime: python3.7
+  iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - "s3:ListBucket"
+    Resource: "arn:aws:s3:::mw-serverless-cloud-school"
+  - Effect: "Allow"
+    Action:
+      - "s3:PutObject"
+      - "s3:GetObject"
+      - "s3:DeleteObject"
+    Resource: "arn:aws:s3:::mw-serverless-cloud-school/*"
+  apiGateway:
+    binaryMediaTypes:
+      - "*/*"
+  runtime: python3.6
   stage: production
   region: eu-central-1
 
@@ -14,11 +28,36 @@ package:
   exclude:
     - monolith/**
 
+plugins:
+  - serverless-python-requirements
+  
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
 # Serverless functions configuration
 functions:
-  image:
+  image_upload:
     handler: serverless_functions/image.upload
     events:
       - http:
-          path: image
+          path: image/upload
+          method: post
+  image_list:
+    handler: serverless_functions/image.list_files
+    events:
+      - http:
+          path: image/list
+          method: get
+  get_image:
+    handler: serverless_functions/image.get
+    events:
+      - http:
+          path: image/get
+          method: get
+  upload_form:
+    handler: serverless_functions/image.upload_html
+    events:
+      - http:
+          path: image/
           method: get
