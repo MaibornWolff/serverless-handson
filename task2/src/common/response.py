@@ -1,18 +1,18 @@
 import json
 
-def create(message, statusCode):
-    body = {
-        "message": message
-    }
 
-    response = {
-        "statusCode": statusCode,
-        "body": json.dumps(body)
-    }
+def create(message, statusCode):
+    body = {"message": message}
+
+    response = {"statusCode": statusCode, "body": json.dumps(body)}
 
     return response
-    
-    
+
+
+def redirect(location):
+    return {"statusCode": 301, "headers": {"Location": location}}
+
+
 def html(html_content):
     body = f"<html><head><title>HTML from API Gateway/Lambda</title></head><body>{html_content}</body></html>"
     return {
