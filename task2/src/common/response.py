@@ -25,7 +25,7 @@ def redirect(location):
 
 
 def html(html_title, html_content):
-    body = f"<html><head><title>{html_title}</title></head><body>{html_content}</body></html>"
+    body = f'<html><head><style type="text/css">img {{ max-width: 100vw; }}</style><title>{html_title}</title></head><body>{html_content}</body></html>'
     return {
         "statusCode": 200,
         "body": body,
