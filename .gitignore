@@ -1,45 +1,21 @@
-#IDE
+# IDE
 *.iml
-.idea/*
+**/.idea/*
 
-node_modules
-
+**/.DS_Store
 
 # Distribution / packaging
+**/venv
 .Python
 *.pyc
 __pycache__/
 env/
 build/
 develop-eggs/
-# dist/  commit for easy
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# doc shadows
-~$*
+node_modules
 
 # Serverless directories
 .serverless
 
-#office
-~$*.ppt*
-~$*.doc*
-
-# temp
-nohup.out
-#Keep it -> deterministic deployment & building!
-#yarn.lock
-#dist/
-
-# will be generated
+# Will be generated
 **/assets/endpoint.js

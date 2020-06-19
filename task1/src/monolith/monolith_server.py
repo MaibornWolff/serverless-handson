@@ -19,8 +19,8 @@ class Server(BaseHTTPRequestHandler):
     def do_GET(self):
 
         paths = {
-            '/brightness':   {'func': MyApp.brightness, 'data': {}},
-            '/wind':         {'func': MyApp.wind, 'data': {}}
+            '/upload': {'func': MyApp.upload, 'data': {}},
+            '/list': {'func': MyApp.list, 'data': {}}
         }
 
         if self.get_path_only() in paths:
@@ -89,8 +89,8 @@ if __name__ == '__main__':
     httpd = server_class((HOST_NAME, PORT_NUMBER), Server)
     print('Server Started - %s:%s' % (HOST_NAME, PORT_NUMBER))
     print('APIs available:')
-    print('http://%s:%s/brightness' % (HOST_NAME, PORT_NUMBER))
-    print('http://%s:%s/wind' % (HOST_NAME, PORT_NUMBER))
+    print('http://%s:%s/upload' % (HOST_NAME, PORT_NUMBER))
+    print('http://%s:%s/list' % (HOST_NAME, PORT_NUMBER))
 
     action_process = Process(target=httpd.serve_forever)
 

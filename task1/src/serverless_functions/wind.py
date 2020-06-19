@@ -2,6 +2,9 @@ from common import logger
 from common import response
 
 """
-    This serverless function returns the current wind
+    This serverless function lists the uploaded images
 """
-def wind(event, context):
+
+
+def list(event, context):
+    return

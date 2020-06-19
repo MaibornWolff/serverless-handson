@@ -2,7 +2,9 @@ from common import logger
 from common import response
 
 """
-    This serverless function returns the current brightness
+    This serverless function uploads an image
 """
-def brightness(event, context):
 
+
+def upload(event, context):
+    return

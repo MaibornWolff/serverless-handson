@@ -4,17 +4,28 @@ import json
 def create(message, statusCode):
     body = {"message": message}
 
-    response = {"statusCode": statusCode, "body": json.dumps(body)}
+    return {
+        "statusCode": statusCode,
+        "body": json.dumps(body)}
 
-    return response
+
+def create_base64(content_type, encoded_str):
+    return {
+        "isBase64Encoded": True,
+        "statusCode": 200,
+        "headers": {
+            "content-type": content_type
+        },
+        "body": encoded_str
+    }
 
 
 def redirect(location):
     return {"statusCode": 301, "headers": {"Location": location}}
 
 
-def html(html_content):
-    body = f"<html><head><title>HTML from API Gateway/Lambda</title></head><body>{html_content}</body></html>"
+def html(html_title, html_content):
+    body = f"<html><head><title>{html_title}</title></head><body>{html_content}</body></html>"
     return {
         "statusCode": 200,
         "body": body,
