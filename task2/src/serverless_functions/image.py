@@ -10,12 +10,7 @@ BUCKET_NAME = "mw-serverless-cloud-school"
 
 
 def get_upload_form(event, context):
-    form = """<form action="upload" method="post" enctype="multipart/form-data">
-        <label for="img">Select image:</label>
-        <input type="file" name="img" accept="image/*" />
-        <input type="submit" />
-        </form>"""
-    return response.html('Upload image', form)
+    return response.html_upload_form()
 
 
 def upload_image(event, context):

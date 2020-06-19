@@ -33,3 +33,13 @@ def html(html_title, html_content):
             'Content-Type': 'text/html',
         }
     }
+
+
+def html_upload_form():
+    form = """<form action="upload" method="post" enctype="multipart/form-data">
+    <label for="img">Select image:</label>
+    <input type="file" name="image" accept="image/*" multiple="multiple" />
+    <input type="submit" />
+    </form>"""
+
+    return html('Upload image', form)
