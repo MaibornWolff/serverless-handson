@@ -34,7 +34,7 @@ def upload_image(event, context):
 
 def get_image(event, context):
     try:
-        image_name = event["queryStringParameters"]["image"]
+        image_name = event["queryStringParameters"]["name"]
         image_data = s3_client.get_object(Bucket=BUCKET_NAME, Key=image_name)
 
         return image_helper.encode_image(image_name, image_data)
@@ -47,7 +47,7 @@ def list_images(event, context):
         images = s3_bucket.Bucket(BUCKET_NAME).objects.all()
 
         images_markup = [
-            f'<li><img alt="{image.key}" src="get?image={image.key}" /></li>'
+            f'<li><img alt="{image.key}" src="get?name={image.key}" /></li>'
             for image in images
         ]
 
