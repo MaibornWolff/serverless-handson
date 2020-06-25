@@ -19,8 +19,9 @@ class Server(BaseHTTPRequestHandler):
     def do_GET(self):
 
         paths = {
-            '/upload': {'func': MyApp.upload, 'data': {}},
-            '/list': {'func': MyApp.list, 'data': {}}
+            '/': {'func': MyApp.get, 'data': {'context': ''}},
+            '/upload': {'func': MyApp.get, 'data': {'context': 'upload'}},
+            '/list': {'func': MyApp.get, 'data': {'context': 'list'}}
         }
 
         if self.get_path_only() in paths:
