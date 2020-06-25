@@ -1,8 +1,8 @@
 #!/bin/bash
 npm install -g yarn serverless
 sudo yum -y install jq
-sudo easy_install-3.7 pip
-sudo pip-3.7 install requests requests-toolbelt
+sudo easy_install-3.6 pip
+sudo pip-3.6 install requests requests-toolbelt
 
 cd task2/src && npm init -y && npm install --save serverless-python-requirements
 

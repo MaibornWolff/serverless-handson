@@ -3,7 +3,7 @@ service: task0
 
 provider:
   name: aws
-  runtime: python3.7
+  runtime: python3.6
   stage: production
   region: eu-central-1
 
