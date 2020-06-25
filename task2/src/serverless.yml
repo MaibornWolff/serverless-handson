@@ -3,17 +3,7 @@ service: task2
 
 provider:
   name: aws
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "s3:ListBucket"
-      Resource: "arn:aws:s3:::mw-serverless-cloud-school"
-    - Effect: "Allow"
-      Action:
-        - "s3:PutObject"
-        - "s3:GetObject"
-        - "s3:DeleteObject"
-      Resource: "arn:aws:s3:::mw-serverless-cloud-school/*"
+  iamRoleStatements: []
   apiGateway:
     binaryMediaTypes:
       - "*/*"
@@ -37,27 +27,3 @@ custom:
 
 # Serverless functions configuration
 functions:
-  image_upload:
-    handler: serverless_functions/image.upload_image
-    events:
-      - http:
-          path: image/upload
-          method: post
-  image_list:
-    handler: serverless_functions/image.list_images
-    events:
-      - http:
-          path: image/list
-          method: get
-  get_image:
-    handler: serverless_functions/image.get_image
-    events:
-      - http:
-          path: image/get
-          method: get
-  upload_form:
-    handler: serverless_functions/image.get_upload_form
-    events:
-      - http:
-          path: image/upload_form
-          method: get
