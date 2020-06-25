@@ -13,3 +13,10 @@ package:
 
 # Serverless functions configuration
 functions:
+  hello_world:
+    handler: handler.hello_world
+    events:
+      - http:
+          path: hello_world
+          method: get
+
