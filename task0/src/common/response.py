@@ -1,5 +1,6 @@
 import json
 
+
 def create(message):
     body = {
         "message": message
