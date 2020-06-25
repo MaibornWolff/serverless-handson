@@ -15,8 +15,6 @@ package:
   include:
     - serverless_functions/**
     - common/**
-  exclude:
-    - monolith/**
 
 plugins:
   - serverless-python-requirements

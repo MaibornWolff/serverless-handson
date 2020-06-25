@@ -25,7 +25,7 @@ def extract_uploaded_files(event):
 
     for part in multipart_data.parts:
         content_type = part.headers[b'Content-Type'].decode()
-        if not content_type in allowed_content_types:
+        if content_type not in allowed_content_types:
             raise Exception('Content-Type not supported')
 
         match = re.search('filename="(.+)"', part.headers[b'Content-Disposition'].decode())
