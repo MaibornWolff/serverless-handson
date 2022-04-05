@@ -14,7 +14,7 @@ def get_upload_form(event, context):
 def upload_image(event, context):
     # Task 1.3 - TODO
     # First step: Extract the uploaded files out of the event
-    # Second step: Use s3_client.put_object(BUCKET_NAME, OBJECT_KEY, OBJECT_BODY) to finally upload each file
+    # Second step: Use s3_client.put_object(Bucket=..., Key=..., Body=...) to finally upload each file
     # A "for" loop may be useful
     return
 
