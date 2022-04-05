@@ -7,6 +7,7 @@ s3_client = boto3.client('s3')
 
 
 def get_upload_form(event, context):
+    # Task 1.1
     return response.html_upload_form()
 
 
