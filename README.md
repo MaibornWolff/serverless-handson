@@ -2,7 +2,7 @@
 
 Enclosed you will find the code for the examples of a guided Serverless Hands-On.
 
-#### Notes
+### Notes
 - The sources were created especially for this event and are only available to the participants.
 - The examples were tailored to specific target groups - i.e. they were didactically adapted to convey the concepts in the best possible way.
 - The code and documentation do not reflect MaibornWolff's qualitative requirements for productive use.
@@ -12,22 +12,22 @@ Enclosed you will find the code for the examples of a guided Serverless Hands-On
 If you use Cloud9, please start the provisioning script by open a terminal in your Cloud9 Web IDE and enter:
 ```
 cd serverless-handson
-./provision.sh
+./provision-cloud9.sh
 ```
 
-#### Operating system
+### Operating system
 It has been tested for the following operating systems:
 - Linux
 - OS X
 
-#### Delete
+### Delete
 If a test goes wrong or a task has to be cleaned up, please run:
 ```
 cd internals
 ./destroy-task.sh
 ```
 
-## Structure
+### Structure
 The tasks are all structured in the same way:
 
 ```
