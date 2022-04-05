@@ -29,6 +29,6 @@ functions:
     handler: serverless_functions/image.get_upload_form
     events:
       - http:
-          path: image/upload_form
+          path: upload_form
           method: get
 
