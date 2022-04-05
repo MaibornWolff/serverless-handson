@@ -1,5 +1,5 @@
 # Common configuration
-service: task2
+service: task1
 
 provider:
   name: aws
