@@ -1,5 +1,5 @@
 #!/bin/bash
-#npm install -g yarn serverless
+#npm install -g yarn serverless@2.5
 #sudo yum -y install jq
 #sudo easy_install-3.6 pip
 #sudo pip-3.6 install requests requests-toolbelt
