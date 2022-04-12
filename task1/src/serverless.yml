@@ -4,6 +4,17 @@ service: task1
 provider:
   name: aws
   iamRoleStatements: []
+#  iamRoleStatements:
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:ListBucket"
+#      Resource: "arn:aws:s3:::my-bucket-name"
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:PutObject"
+#        - "s3:GetObject"
+#        - "s3:DeleteObject"
+#      Resource: "arn:aws:s3:::my-bucket-name/*"
   apiGateway:
     binaryMediaTypes:
       - "*/*"
