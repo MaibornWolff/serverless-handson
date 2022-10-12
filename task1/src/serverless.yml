@@ -16,3 +16,15 @@ package:
 
 # Serverless functions configuration
 functions:
+  list:
+    handler: serverless_functions/list.list
+    events:
+      - http:
+          path: list
+          method: get
+  upload:
+    handler: serverless_functions/upload.upload
+    events:
+      - http:
+          path: upload
+          method: post

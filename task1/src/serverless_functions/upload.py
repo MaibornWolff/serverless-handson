@@ -7,4 +7,5 @@ from common import response
 
 
 def upload(event, context):
-    return
+    logger.info("Post /upload")
+    return response.create("Image uploaded successfully!")

@@ -7,4 +7,5 @@ from common import response
 
 
 def list(event, context):
-    return
+    logger.info("Get /list")
+    return response.create("Here are your images!")
