@@ -1,10 +1,6 @@
 #!/bin/bash
-npm install -g yarn serverless
-sudo yum -y install jq
-sudo easy_install-3.6 pip
-sudo pip-3.6 install requests requests-toolbelt
+npm install -g yarn serverless@2.5
+# Deactivate until new setup with newer python version is ready
+# sudo pip install requests requests-toolbelt
 
 cd task2/src && npm init -y && npm install --save serverless-python-requirements
-
-# extracts the group ID from the AWS user name, e.g. cs12 would result in 12
-echo -e "\n\nexport GROUP_ID=${C9_USER#'cs'}" >> ~/.bashrc
