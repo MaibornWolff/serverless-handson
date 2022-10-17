@@ -1,6 +1,8 @@
 #!/bin/bash
-npm install -g yarn serverless@2.5
-# Deactivate until new setup with newer python version is ready
-# sudo pip install requests requests-toolbelt
+set -e
 
-cd task2/src && npm init -y && npm install --save serverless-python-requirements
+npm install -g yarn serverless@3.23.0
+
+cd task2/src
+sudo pip install -r requirements.txt
+npm install

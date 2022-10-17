@@ -3,18 +3,20 @@ service: task2
 
 provider:
   name: aws
-  iamRoleStatements: []
+  iam:
+    role:
+      statements: []
   apiGateway:
     binaryMediaTypes:
       - "*/*"
-  runtime: python3.8
+  runtime: python3.7
   stage: production
   region: eu-central-1
 
 package:
-  include:
-    - serverless_functions/**
-    - common/**
+  patterns:
+    - 'serverless_functions/**'
+    - 'common/**'
 
 plugins:
   - serverless-python-requirements
