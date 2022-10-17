@@ -3,16 +3,15 @@ service: task1
 
 provider:
   name: aws
-  runtime: python3.8
+  runtime: python3.7
   stage: production
   region: eu-central-1
 
 package:
-  include:
-    - serverless_functions/**
-    - common/**
-  exclude:
-    - monolith/**
+  patterns:
+    - 'serverless_functions/**'
+    - 'common/**'
+    - '!monolith/**'
 
 # Serverless functions configuration
 functions:

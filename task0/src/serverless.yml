@@ -3,13 +3,13 @@ service: task0
 
 provider:
   name: aws
-  runtime: python3.8
+  runtime: python3.7
   stage: production
   region: eu-central-1
 
 package:
-  include:
-    - common/**
+  patterns:
+    - 'common/**'
 
 # Serverless functions configuration
 functions:
